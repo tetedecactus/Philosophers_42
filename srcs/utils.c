@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:10:37 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/16 14:39:31 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:28:13 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,23 @@ long	current_time(t_philo *philo)
 {
 	long time_in_ms;
 
-	time_in_ms = time_ms() - philo->start_time;
+	time_in_ms = time_ms() - philo->args.start_time;
 	return (time_in_ms);
 }
 
-long	time_ms(void)
+long time_ms(void) 
 {
   struct timeval time;
-  long s1;
-  long s2;
+  long rtime;
   
-  gettimeofday(&time, NULL);
-  s1 = (time.tv_sec) * 1000;
-  s2 = (time.tv_usec / 1000);
-  return (s1 + s2);
+  rtime = 0;
+  if (gettimeofday(&time, NULL) == -1)
+        return (printf("gettimeofday failed.\n"));
+  rtime = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+  return (rtime);
 }
 
-void	ft_usleep(long int time_in_ms)
+void	ft_usleep(long time_in_ms)
 {
 	long	start_time;
 
@@ -72,3 +72,4 @@ void	ft_usleep(long int time_in_ms)
 	while ((time_ms() - start_time) < time_in_ms)
 		usleep(time_in_ms / 10);
 }
+

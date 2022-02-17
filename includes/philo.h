@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:48:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/16 14:38:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:27:45 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 typedef enum e_status
 {
     eat,
-    sleep_dodo,
+    sleep_dodd,
     think,
     dead,
 }   t_status;
@@ -51,10 +51,9 @@ typedef struct s_info
     int                 tt_eat;
     int                 tt_sleep;
     int                 nb_eat;
-    int                 timer;
+	long    			start_time;
     pthread_mutex_t     *fork;
     pthread_mutex_t     status;
-    //t_philo *philo;changer pour que les strcut ce call entre ell
     
 }       t_info;
 
@@ -63,12 +62,10 @@ typedef struct s_philo
 	int				    id;
 	int				    fork_l;
 	int				    fork_r;
-	int				    start_time;
+	int				    meals;
     int                 is_dead;
 	pthread_mutex_t	    fork_protect;
     t_info              args;
-    // t_info              *args;// 
-
     t_status            status;
     
 }       t_philo;
@@ -80,23 +77,24 @@ typedef struct s_data
     
 } t_data;
 
-// Init struct 
-t_philo *init_philo(t_data *data);
+//Main 
+void        start_diner(t_data *data);
+
+//Init
 t_info init_info(int ac, char **av, t_data *data);
+t_philo *init_philo(t_data *data);
 
 //Utils
 int         ft_atoi(const char *str);
 int         ft_isdigit(int c);
-long        time_ms(void);
-long        current_time(t_philo *philo);
-void	      ft_usleep(long time_in_ms);
-void        print_info_philo(t_philo philo);
-
-// Routine
-void *routine(void *data);
+long         time_ms(void);
+void	    ft_usleep(long time_in_ms);
+long 	    current_time(t_philo *philo);
 
 // Status
 void print_status(t_philo *philo, char *message);
 
+//Routine 
+void *routine(void *data);
 
 #endif
