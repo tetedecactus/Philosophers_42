@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:10:37 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/17 16:28:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:30:20 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_atoi(const char *str)
 
 int  ft_isdigit(int c)
 {
-     return ((c >= '0' && c <= '9'));
+    return ((c >= '0' && c <= '9'));
 }
 
 long	current_time(t_philo *philo)

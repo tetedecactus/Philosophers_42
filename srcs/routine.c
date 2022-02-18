@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:03:25 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/17 16:20:15 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/17 18:11:28 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int check_if_dead(t_philo *philo)
     long time = time_ms();
     if (time - philo->args.start_time > philo->args.tt_die)
     {
-        print_status(philo, dead_message);
         philo->is_dead++;
+        print_status(philo, dead_message);
         return (1);
     }
     return (0);
@@ -56,7 +56,7 @@ void *eating(t_philo *philo)
         print_status(philo, fork_message);
         print_status(philo, eat_mesage);
         philo->args.start_time = time_ms();
-        while (time_ms() - philo->args.start_time <= philo->args.tt_eat)  
+        while (time_ms() - philo->args.start_time <= philo->args.tt_eat && !philo->is_dead)  
             ft_usleep(philo->args.tt_eat);
         pthread_mutex_unlock(&philo->args.fork[philo->fork_r]);
         pthread_mutex_unlock(&philo->args.fork[philo->fork_l]);
