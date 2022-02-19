@@ -6,13 +6,13 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:50:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/17 16:21:04 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/18 09:54:02 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-t_philo *init_philo(t_data *data)
+int init_philo(t_data *data)
 {
     t_philo *philo;
     
@@ -20,7 +20,7 @@ t_philo *init_philo(t_data *data)
     
     philo = malloc(sizeof(t_philo) * data->info.nb_philo);
     if (!philo)
-        return (NULL);
+        return (1);
     i = -1;
     while (++i < data->info.nb_philo)
     {
@@ -32,9 +32,8 @@ t_philo *init_philo(t_data *data)
 		// 	printf("L'initialisation du mutex de for a échoué.\n");
         philo[i].args = data->info;
     }
-    // data->philo = philo;
-    return (philo);
-    
+    data->philo = philo;
+    return (0);
 }
 
 int init_fork(t_info *info)
@@ -53,23 +52,23 @@ int init_fork(t_info *info)
     return (0);
 }
 // besoin de changer pour int function
-t_info init_info(int ac, char **av, t_data *data)
+int init_info(int ac, char **av, t_data *data)
 {
-    t_info      info;
-    (void)data;
-    info.nb_philo = ft_atoi(av[1]);
-    info.tt_die = ft_atoi(av[2]);
-    info.tt_eat =  ft_atoi(av[3]);
-    info.tt_sleep = ft_atoi(av[4]);
+    data->info.nb_philo = ft_atoi(av[1]);
+    data->info.tt_die = ft_atoi(av[2]);
+    data->info.tt_eat =  ft_atoi(av[3]);
+    data->info.tt_sleep = ft_atoi(av[4]);
     if (ac == 6)
-        info.nb_eat = ft_atoi(av[5]);
+        data->info.nb_eat = ft_atoi(av[5]);
     else
-        info.nb_eat = 0;
-    info.start_time = time_ms();
-    if (pthread_mutex_init(&info.status, NULL))
-		printf("%s", mutex_error);
-    if (init_fork(&info))
-        printf("Fork init failed\n");
-    // data->info = info;
-    return (info);
+        data->info.nb_eat = 0;
+    data->info.start_time = time_ms();
+    if (pthread_mutex_init(&data->info.status, NULL))
+		return (printf("%s", mutex_error));
+    if (init_fork(&data->info))
+        return (printf("Fork init failed\n"));
+    if (init_philo(data))
+        return (1);
+    return (0);
 }
+

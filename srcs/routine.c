@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:03:25 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/17 18:11:28 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:00:56 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int check_if_dead(t_philo *philo)
 {
     long time = time_ms();
-    if (time - philo->args.start_time > philo->args.tt_die)
+    if (time - philo->args.start_time > philo->args.tt_die && philo->is_dead == 0)
     {
         philo->is_dead++;
         print_status(philo, dead_message);
@@ -70,12 +70,14 @@ void *eating(t_philo *philo)
 void *routine(void *data)
 {
     t_philo *philo;
-    
+    //BESOIN DE CHANGER CETTE FUNCTION
     philo = (t_philo*)data;
     if (philo->id % 2 == 0)
         usleep(16000);
     while(!philo->is_dead)
     {
+        if (check_if_dead(philo))
+            return (NULL);
         if (philo->is_dead)
             break;
         eating(philo);
@@ -86,6 +88,7 @@ void *routine(void *data)
             break;
         thinking(philo);
     }
+
     return (NULL);
 }
 

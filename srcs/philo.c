@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/17 16:09:14 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:53:06 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,9 @@ int main(int ac, char **av)
     if (check_args(ac, av))
        return (printf("%s", args_error));
 	memset(&data.info, 0, sizeof(t_info));
-    data.info = init_info(ac, av, &data);
-	data.philo = init_philo(&data);
-	if (!data.philo || !&data.info)
-		return (-1);
+    if (init_info(ac, av, &data))
+		return (printf("%s", init_error));
 	start_diner(&data);
 	clear_table(&data);
 }
 
-
-//RESTE A INIT LES FUCKING MUTEX ET TROUVER COMBIEN JEN VEUX
