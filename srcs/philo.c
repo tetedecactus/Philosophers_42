@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/18 14:53:06 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/19 13:13:35 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ void start_diner(t_data *data)
 			printf("Error when thread %d create\n", i);
 		usleep(10);
 	}
+	// i = -1;
+	// while (1)
+	// {
+		
+	// 	while (++i <  n)
+	// 	{
+	// 		check_if_dead(&data->philo[i]);
+			
+	// 	}
+	// }
 	i = -1;
 	while (++i < n)
 	{

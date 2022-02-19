@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:48:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/18 19:51:06 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/19 13:14:37 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ long 	    current_time(t_philo *philo);
 
 // Status
 void print_status(t_philo *philo, char *message);
-int check_if_dead(t_philo *philo);
+void check_if_dead(t_philo *philo);
 
 //Routine 
 void *routine(void *data);
