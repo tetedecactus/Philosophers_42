@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:50:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/18 09:54:02 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:48:54 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int init_philo(t_data *data)
         philo[i].id = i + 1;
         philo[i].fork_l = i;
 		philo[i].fork_r = (i + 1) % data->info.nb_philo;
-        philo[i].is_dead = 0;
-		// if (pthread_mutex_init(&philo[i].fork_protect, NULL))
-		// 	printf("L'initialisation du mutex de for a échoué.\n");
+        philo[i].start_time = time_ms();
+        philo[i].meals = 0;
         philo[i].args = data->info;
+		if (pthread_mutex_init(&philo[i].fork_protect, NULL))
+			printf("L'initialisation du mutex de for a échoué.\n");
     }
     data->philo = philo;
     return (0);
@@ -62,7 +63,9 @@ int init_info(int ac, char **av, t_data *data)
         data->info.nb_eat = ft_atoi(av[5]);
     else
         data->info.nb_eat = 0;
-    data->info.start_time = time_ms();
+    // data->info.start_time = time_ms();
+    data->info.base_time = 0;
+    data->info.is_dead = 0;
     if (pthread_mutex_init(&data->info.status, NULL))
 		return (printf("%s", mutex_error));
     if (init_fork(&data->info))
