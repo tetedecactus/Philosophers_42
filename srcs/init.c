@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 19:50:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/20 19:48:54 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/21 08:08:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int init_philo(t_data *data)
         philo[i].id = i + 1;
         philo[i].fork_l = i;
 		philo[i].fork_r = (i + 1) % data->info.nb_philo;
-        philo[i].start_time = time_ms();
+        philo[i].start_time = 0;
         philo[i].meals = 0;
         philo[i].args = data->info;
 		if (pthread_mutex_init(&philo[i].fork_protect, NULL))

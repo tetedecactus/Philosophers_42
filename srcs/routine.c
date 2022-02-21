@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:03:25 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/20 20:31:15 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/21 08:09:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	check_meals(t_philo *philo)
 {
 	int	i;
-
 	i = -1;
 	while (++i < philo->args.nb_philo)
 	{
@@ -58,26 +57,20 @@ void eating(t_philo *philo)
         print_status(philo, fork_message);
         pthread_mutex_lock(&philo->args.fork[philo->fork_l]);
         print_status(philo, fork_message);
+        pthread_mutex_lock(&philo->fork_protect);
         print_status(philo, eat_mesage);
         philo->start_time = time_ms();
+        pthread_mutex_unlock(&philo->fork_protect);
         ft_usleep(philo->args.tt_eat);
+        while (time_ms() - philo->start_time <= philo->args.tt_eat && \
+		!philo->args.is_dead)
+			usleep(1000);
+        philo->meals++;
         pthread_mutex_unlock(&philo->args.fork[philo->fork_r]);
         pthread_mutex_unlock(&philo->args.fork[philo->fork_l]);
     }
 }
-// int	check_meals(t_philo *philo)
-// {
-// 	int	i;
 
-// 	i = -1;
-// 	while (++i < philo->args.nb_philo)
-// 	{
-// 		if (philo->info->philo[i].meals < philo->info->num_must_eat)
-// 			return (0);
-// 	}
-// 	philo->info->stop = 1;
-// 	return (1);
-// }
 /*This function is the send theard to 3 differente routine_action eating(), sleeping(), thinking()*/
 void *routine(void *data)
 {

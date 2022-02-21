@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/20 20:08:19 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:18:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void start_diner(t_data *data)
 	i = -1;
 	while (++i < n) 
 	{
+		data->philo[i].start_time = time_ms();
 		if (pthread_create(&th[i], NULL, routine, &data->philo[i]) != 0)
 			printf("Error when thread %d create\n", i);
 		if (pthread_create(&monitor[i], NULL, monitore, &data->philo[i]))
