@@ -6,63 +6,69 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:03:25 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/19 13:15:11 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/21 11:52:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void check_if_dead(t_philo *philo)
+int	check_meals(t_philo *philo)
 {
-    long time = time_ms();
-    if (time - philo->args.start_time > philo->args.tt_die)
-    {
-        print_status(philo, dead_message);
-        philo->is_dead++;
-        usleep(10);
-        exit (1);
-    }
+	int	i;
+	i = -1;
+	while (++i < philo->args->nb_philo)
+	{
+		if (philo[i].meals < philo->args->nb_eat)
+			return (0);
+	}
+	philo->args->is_dead = 1;
+	return (1);
 }
 
-void *thinking(t_philo *philo)
+void thinking(t_philo *philo)
 {
-    if (!philo->is_dead)
-        print_status(philo, think_message);
-    // else
-    //     print_status(philo, dead_message);
-    return (NULL);
+    print_status(philo, think_message);
 }
 
-void *sleeping(t_philo *philo)
+void sleeping(t_philo *philo)
 {
-    if (!philo->is_dead)
-    {
-        print_status(philo, sleep_message);
-        ft_usleep(philo->args.tt_sleep);
-    }
-    // else
-    //     print_status(philo, dead_message);
-    return (NULL);
+    long start_sleep;
+
+    start_sleep = time_ms();
+    print_status(philo, sleep_message);
+    while (time_ms() - start_sleep <= philo->args->tt_sleep && \
+	!philo->args->is_dead)
+        ft_usleep(philo->args->tt_sleep);
 }
 
-void *eating(t_philo *philo)
+void eating(t_philo *philo)
 {
-    // faire un sleep de time_to_eat
-    if (!philo->is_dead)
+    if (philo->args->nb_philo == 1)
+	{
+		pthread_mutex_lock(&philo->args->fork[philo->fork_r]);
+		print_status(philo, fork_message);
+		while (!philo->args->is_dead)
+			usleep(1000);
+		pthread_mutex_unlock(&philo->args->fork[philo->fork_r]);
+	}
+    else
     {
-        pthread_mutex_lock(&philo->args.fork[philo->fork_r]);
+        pthread_mutex_lock(&philo->args->fork[philo->fork_r]);
         print_status(philo, fork_message);
-        pthread_mutex_lock(&philo->args.fork[philo->fork_l]);
+        pthread_mutex_lock(&philo->args->fork[philo->fork_l]);
         print_status(philo, fork_message);
+        pthread_mutex_lock(&philo->fork_protect);
         print_status(philo, eat_mesage);
-        philo->args.start_time = time_ms();
-        ft_usleep(philo->args.tt_eat);
-        pthread_mutex_unlock(&philo->args.fork[philo->fork_r]);
-        pthread_mutex_unlock(&philo->args.fork[philo->fork_l]);
+        philo->start_time = time_ms();
+        pthread_mutex_unlock(&philo->fork_protect);
+        ft_usleep(philo->args->tt_eat);
+        while (time_ms() - philo->start_time <= philo->args->tt_eat && \
+		!philo->args->is_dead)
+			usleep(1000);
+        philo->meals++;
+        pthread_mutex_unlock(&philo->args->fork[philo->fork_r]);
+        pthread_mutex_unlock(&philo->args->fork[philo->fork_l]);
     }
-    // else
-    //     print_status(philo, dead_message);
-    return (NULL);
 }
 
 /*This function is the send theard to 3 differente routine_action eating(), sleeping(), thinking()*/
@@ -72,17 +78,20 @@ void *routine(void *data)
     //BESOIN DE CHANGER CETTE FUNCTION
     philo = (t_philo*)data;
     if (philo->id % 2 == 0)
-        usleep(16000);
-    while(!philo->is_dead)
+        ft_usleep(16000);
+    while(!philo->args->is_dead)
     {
-        check_if_dead(philo);
         eating(philo);
-        // if (philo->is_dead)
-        //     break;
-        sleeping(philo);
-        thinking(philo);
-        // if (philo->is_dead)
-        //     break;
+		if (philo->args->nb_eat != -1 && check_meals(philo))
+			break;
+		if (philo->args->is_dead)
+			break ;
+		sleeping(philo);
+		if (philo->args->is_dead)
+			break ;
+		thinking(philo);
+		if (philo->args->is_dead)
+			break ;
     }
     return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:48:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/19 13:14:37 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/21 11:59:15 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,35 @@ typedef enum e_status
     death,
 }   t_status;
 
+typedef struct s_philo t_philo;
+
 typedef struct s_info
 {
     pthread_mutex_t     *fork;
     pthread_mutex_t     status;
-    long    			start_time;
+    t_philo             *philo;
     int                 nb_philo;
     int                 tt_die;
     int                 tt_eat;
     int                 tt_sleep;
     int                 nb_eat;
-    
+    int                 base_time;
+    int                 is_dead;
 }       t_info;
 
-typedef struct s_philo
+typedef struct s_philo 
 {
     pthread_mutex_t	    fork_protect;
-    t_info              args;
+    pthread_t		    philo_th;
+	pthread_t		    monitor;
+    t_info              *args;
     t_status            status;
+    long    			start_time;
     int				    id;
     int				    fork_l;
     int				    fork_r;
     int				    meals;
-    int                 is_dead;
-    
 }       t_philo;
-
-typedef struct s_data
-{
-    t_philo *philo;
-    t_info  info;
-    
-} t_data;
 
 //Main 
 void        start_diner(t_data *data);
