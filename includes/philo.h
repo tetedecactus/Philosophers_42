@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:48:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/21 11:59:15 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:24:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_info
 {
     pthread_mutex_t     *fork;
     pthread_mutex_t     status;
-    t_philo             *philo;
+    // t_philo             *philo;
     int                 nb_philo;
     int                 tt_die;
     int                 tt_eat;
@@ -74,7 +74,11 @@ typedef struct s_philo
     int				    fork_r;
     int				    meals;
 }       t_philo;
-
+typedef struct s_data
+{
+    t_philo *philo;
+    t_info *info;
+}t_data;
 //Main 
 void        start_diner(t_data *data);
 void        clear_table(t_data *data);

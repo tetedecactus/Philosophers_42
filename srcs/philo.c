@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/21 11:58:38 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:26:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ int check_args(int ac, char **av)
 
 int main(int ac, char **av)
 {
-	t_info;
+	t_data data;
 	
     if (check_args(ac, av))
        return (printf("%s", args_error));
-	memset(&info, 0, sizeof(t_info));
+	memset(&data, 0, sizeof(t_data));
     if (init_info(ac, av, &data))
 		return (printf("%s", init_error));
 	start_diner(&data);
