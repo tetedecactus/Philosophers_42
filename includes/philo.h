@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:48:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/22 13:24:50 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/22 14:47:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_info
 {
     pthread_mutex_t     *fork;
     pthread_mutex_t     status;
-    // t_philo             *philo;
+    t_philo             *philo;
     int                 nb_philo;
     int                 tt_die;
     int                 tt_eat;
@@ -74,31 +74,27 @@ typedef struct s_philo
     int				    fork_r;
     int				    meals;
 }       t_philo;
-typedef struct s_data
-{
-    t_philo *philo;
-    t_info *info;
-}t_data;
+
 //Main 
-void        start_diner(t_data *data);
-void        clear_table(t_data *data);
+// void        start_diner(t_data *data);
+// void        clear_table(t_data *data);
 
 
-//Init
-int init_info(int ac, char **av, t_data *data);
+// //Init
+// int init_info(int ac, char **av, t_data *data);
 
-//Utils
-int         ft_atoi(const char *str);
-int         ft_isdigit(int c);
-long         time_ms(void);
-void	    ft_usleep(long time_in_ms);
-long 	    current_time(t_philo *philo);
+// //Utils
+// int         ft_atoi(const char *str);
+// int         ft_isdigit(int c);
+// long         time_ms(void);
+// void	    ft_usleep(long time_in_ms);
+// long 	    current_time(t_philo *philo);
 
-// Status
-void print_status(t_philo *philo, char *message);
-void check_if_dead(t_philo *philo);
+// // Status
+// void print_status(t_philo *philo, char *message);
+// void check_if_dead(t_philo *philo);
 
-//Routine 
-void *routine(void *data);
+// //Routine 
+// void *routine(void *data);
 
 #endif
