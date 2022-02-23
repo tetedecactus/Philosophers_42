@@ -34,7 +34,7 @@
 # define think_message "\e[1;92m is thinking 🤔 \e[0m"
 # define dead_message "\e[1;91m died 💀 \e[0m"
 
-// Error message if the args are wrong!
+// Error message 
 # define args_error "To run it:\n./<Name_of_program>   <Number_of_philosopher> \
 <Time_to_die>   <Time_to_eat>   <Time_to_sleep>   :optionel \
 <Number_of_times_each_philosopher_must_eat>\n"
@@ -61,16 +61,14 @@ typedef struct s_info
     int                 tt_eat;
     int                 tt_sleep;
     int                 nb_eat;
-    int                 base_time;
     int                 is_dead;
 }       t_info;
 
 typedef struct s_philo 
 {
-    pthread_mutex_t	    fork_protect;
     pthread_t		    philo_th;
 	pthread_t		    monitor;
-    t_info              *args;
+    t_info              *info;
     t_status            status;
     long    			start_time;
     int				    id;
@@ -85,7 +83,7 @@ typedef struct s_philo
 
 
 // //Init
-// int init_info(int ac, char **av, t_data *data);
+int init_info(int ac, char **av, t_info *info);
 
 // //Utils
 // int         ft_atoi(const char *str);

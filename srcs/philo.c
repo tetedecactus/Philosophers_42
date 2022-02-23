@@ -1,16 +1,16 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   philo.c                                            :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-// /*   Updated: 2022/02/22 13:26:22 by olabrecq         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
+/*   Updated: 2022/02/23 09:11:27 by olabrecq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "../includes/philo.h"
+#include "../includes/philo.h"
 
 // void	*monitore(void *param)
 // {
@@ -92,16 +92,17 @@
 //     return (1);
 // }
 
-// int main(int ac, char **av)
-// {
-// 	t_data data;
-	
-//     if (check_args(ac, av))
-//        return (printf("%s", args_error));
-// 	memset(&data, 0, sizeof(t_data));
-//     if (init_info(ac, av, &data))
-// 		return (printf("%s", init_error));
-// 	start_diner(&data);
-// 	clear_table(&data);
-// }
+int main(int ac, char **av)
+{
+    t_info info;
+
+    if (check_args(ac, av))
+       return (printf("%s", args_error));
+	memset(&info, 0, sizeof(t_info));
+    if (init_info(ac, av, &info))
+		return (printf("%s", init_error));
+	// start_diner(&data);
+	// clear_table(&data);
+    return (0);
+}
 
