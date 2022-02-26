@@ -6,11 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:48:17 by olabrecq          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/22 14:47:42 by olabrecq         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/21 11:59:15 by olabrecq         ###   ########.fr       */
->>>>>>> 2d2508880d8d590e65f3a04ad1b6fcd15a50aad4
+/*   Updated: 2022/02/23 11:36:47 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +62,7 @@ typedef struct s_info
 
 typedef struct s_philo 
 {
+    pthread_mutex_t     fork_protect;
     pthread_t		    philo_th;
 	pthread_t		    monitor;
     t_info              *info;
@@ -86,17 +83,18 @@ typedef struct s_philo
 int init_info(int ac, char **av, t_info *info);
 
 // //Utils
-// int         ft_atoi(const char *str);
-// int         ft_isdigit(int c);
-// long         time_ms(void);
-// void	    ft_usleep(long time_in_ms);
-// long 	    current_time(t_philo *philo);
+int         ft_atoi(const char *str);
+int         ft_isdigit(int c);
+long         time_ms(void);
+void	    ft_usleep(long time_in_ms);
+long 	    current_time(t_philo *philo);
 
 // // Status
-// void print_status(t_philo *philo, char *message);
-// void check_if_dead(t_philo *philo);
+void print_status(t_philo *philo, char *message);
+void check_if_dead(t_philo *philo);
 
 // //Routine 
-// void *routine(void *data);
+void *routine(void *data);
+void	*monitor(void *param);
 
 #endif
