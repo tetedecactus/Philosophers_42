@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/23 11:40:33 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:28:49 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void start_diner(t_info *info)
 	int n;
 	
 	n = info->nb_philo;
-	// pthread_t th[n];
-	// pthread_t monitor[n];
 	i = -1;
 	while (++i < n) 
 	{

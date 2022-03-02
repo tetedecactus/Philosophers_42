@@ -103,16 +103,15 @@ void	*monitor(void *param)
 	philo = param;
 	while (!philo->info->is_dead)
 	{
-		pthread_mutex_lock(&philo->fork_protect);
 		if (time_ms() - philo->start_time >= philo->info->tt_die)
 		{
 			print_status(philo, dead_message);
-			philo->info->is_dead= 1;
+			pthread_mutex_lock(&philo->fork_protect);
+			philo->info->is_dead = 1;
 			pthread_mutex_unlock(&philo->fork_protect);
 			break ;
 		}
 		pthread_mutex_unlock(&philo->fork_protect);
-		usleep(100);
 	}
 	return (NULL);
 }

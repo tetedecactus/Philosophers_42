@@ -6,49 +6,60 @@
 #    By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:18:01 by olabrecq          #+#    #+#              #
-#    Updated: 2022/02/18 08:33:27 by olabrecq         ###   ########.fr        #
+#    Updated: 2022/03/01 14:30:00 by olabrecq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = 	./srcs/philo.c \
-		./srcs/routine.c \
-		./srcs/init.c \
-		./srcs/utils.c \
-		./srcs/status.c
-
-INCLUDES = ./includes/philo.h \
-
-OBJS = ${SRCS:.c=.o}
-
-HEADER = includes/philo.h 
+SRC	 = srcs
+INC  = includes
+OBJ  = obj
 
 CC = gcc
-#  -Werror
-CFLAGS 	= -Wall -Wextra -g
+CFLAGS 	= -Wall -Werror -Wextra -g
 
-# .c.o:		
-# 	@echo "\033[0;32m Generating obj..."
-# 	@$(CC) ${CFLAGS} ${INCLUDES} -c $< -o $(<:.c=.o)
-# 	@echo "\033[0m"
+RM		=	rm -rf
+MK		=	mkdir
 
-all:	${NAME}
+CFILES = 	philo.c \
+			routine.c \
+			init.c \
+			utils.c \
+			status.c
 
-${NAME}:	${OBJS}
+HFILES = 	philo.h \
+
+OFILES = 	${CFILES:.c=.o}
+
+SRCS		=	$(addprefix $(SRC)/, $(CFILES))
+HEADER		=	$(addprefix $(INC)/, $(HFILES))
+OBJS		=	$(addprefix $(OBJ)/, $(OFILES))
+
+VPATH		=	$(SRCS)
+
+$(OBJ)/%.o:	$(SRC)/%.c
+			$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+all:	$(NAME)
+
+$(NAME): $(OBJ)	$(OBJS)
 	@echo "\033[0;33m Compiling..."
-	@$(CC) ${OBJS} -o ${NAME} -lpthread
+	@$(CC) $(OBJS) -o $(NAME) -lpthread
 	@echo "\033[0m"
 	@echo "\n\033[32m\033[1m  Philosophers Compiled\n\033[0m"
 
+$(OBJ):
+			@$(MK) $(OBJ)
 clean:
 	@echo "\033[0;31m Cleaning..."
-	@rm -f ${OBJS}
+	@rm -f $(OBJS)
+	@${RM} $(OBJ)/
 	@echo "\033[0m"
 
 fclean: clean
 	@echo "\033[0;31m Removing executable..."
-	@rm -f ${PROG}
+	@rm -f $(PROG)
 	@echo "\033[0m"
 
 re:			fclean all
