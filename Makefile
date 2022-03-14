@@ -30,7 +30,7 @@ CFILES = 	philo.c \
 
 HFILES = 	philo.h \
 
-OFILES = 	${CFILES:.c=.o}
+OFILES = 	$(CFILES:.c=.o)
 
 SRCS		=	$(addprefix $(SRC)/, $(CFILES))
 HEADER		=	$(addprefix $(INC)/, $(HFILES))

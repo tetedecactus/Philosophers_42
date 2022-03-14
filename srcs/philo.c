@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:16:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/01 14:28:49 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:26:10 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ void start_diner(t_info *info)
 	
 	n = info->nb_philo;
 	i = -1;
+	printf("|---------|-------|-------------------------|\n");
+	printf("| Time ms | Philo |         Action          |\n");
+	printf("|---------|-------|-------------------------|\n");
 	while (++i < n) 
 	{
 		info->philo[i].start_time = time_ms();
-		if (pthread_create(&info->philo[i].philo_th, NULL, routine, &info->philo[i]) != 0)
+		if (pthread_create(&info->philo[i].philo_th, NULL, &routine, &info->philo[i]) != 0)
 			printf("Error when thread %d create\n", i);
-		if (pthread_create(&info->philo[i].monitor, NULL, monitor, &info->philo[i]))
+		if (pthread_create(&info->philo[i].monitor, NULL, &monitor, &info->philo[i]))
 			printf("Failed to create thread.\n");
 		usleep(10);
 	}
