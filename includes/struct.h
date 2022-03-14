@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/14 13:59:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:36:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 {
 	t_philo *philo;
 	t_info 	info;
+	pthread_t 	timere;
 } t_data;
 
 #endif

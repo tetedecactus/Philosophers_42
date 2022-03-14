@@ -1,3 +1,4 @@
+#--------Utils------------
 YELLOW 	= \033[0;33m
 GREEN 	= \033[0;32m
 RED 	= \033[0;31m
@@ -5,7 +6,7 @@ END 	= \033[0m
 
 RM		=	rm -rf
 MK		=	mkdir
-
+#------------------------
 NAME = philo
 
 CC = gcc 
@@ -40,8 +41,8 @@ all:	$(NAME)
 $(NAME): $(OBJ)	$(OBJS)
 	@echo "$(GREEN) Compiling..."
 	@$(CC) $(OBJS) -o $(NAME) -lpthread
-	@echo "\033[0m"
-	@echo "\n\033[32m\033[1m  Philosophers Compiled\n\033[0m"
+	@echo "$(END)"
+	@echo "$(GREEN)  Philosophers Compiled\n\033[0m"
 
 $(OBJ):
 			@$(MK) $(OBJ)
