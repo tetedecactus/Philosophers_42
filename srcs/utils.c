@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/12 11:10:37 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/23 11:11:22 by olabrecq         ###   ########.fr       */
+/*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
+/*   Updated: 2022/03/14 12:31:32 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+# include "../includes/philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -47,15 +47,15 @@ long	current_time(t_philo *philo)
 {
 	long time_in_ms;
 
-	time_in_ms = time_ms() - philo->start_time;
+	time_in_ms = time_ms() - philo->timer;
 	return (time_in_ms);
 }
 
-long time_ms(void) 
+long time_ms(void)
 {
   struct timeval time;
   long rtime;
-  
+
   rtime = 0;
   if (gettimeofday(&time, NULL) == -1)
         return (printf("gettimeofday failed.\n"));

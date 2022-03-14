@@ -5,73 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 19:50:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/04 18:05:30 by olabrecq         ###   ########.fr       */
+/*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
+/*   Updated: 2022/03/14 14:27:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-int init_philo(t_info *info)
-{
-    t_philo *philo;
-    
-    int i;
-    
-    philo = malloc(sizeof(t_philo) * info->nb_philo);
-    if (!philo)
-        return (1);
-    i = -1;
-    while (++i < info->nb_philo)
-    {
-        philo[i].id = i + 1;
-        philo[i].fork_l = i;
-		philo[i].fork_r = (i + 1) % info->nb_philo;
-        philo[i].start_time = 0;
-        philo[i].meals = 0;
-        philo[i].info = info;
-		if (pthread_mutex_init(&philo[i].fork_protect, NULL))
-			printf("L'initialisation du mutex de for a échoué.\n");
-    }
-    info->philo = philo;
-    return (0);
-}
-
 int init_fork(t_info *info)
 {
     int i;
 
-    i = 0;
+    i = -1;
     info->fork = malloc(sizeof(pthread_mutex_t) * info->nb_philo);
     if (!info->fork)
-        return (printf("%s", mutex_error));
-    while (i < info->nb_philo)
+        return (printf("%s", FORK_INIT_ERR));
+    while (++i < info->nb_philo)
     {
-        if (pthread_mutex_init(&info->fork[i++], NULL))
-			return (printf("%s", mutex_error));
+        if (pthread_mutex_init(&info->fork[i], NULL))
+			return (printf("%s", MUTEX_INIT_ERR));
     }
     return (0);
 }
 
-
-int init_info(int ac, char **av, t_info *info)
+int init_philo(t_data *data)
 {
-    info->nb_philo = ft_atoi(av[1]);
-    info->tt_die = ft_atoi(av[2]);
-    info->tt_eat =  ft_atoi(av[3]);
-    info->tt_sleep = ft_atoi(av[4]);
-    if (ac == 6)
-        info->nb_eat = ft_atoi(av[5]);
-    else
-        info->nb_eat = 0;
-    // data->info.start_time = time_ms();
-    info->is_dead = 0;
-    if (pthread_mutex_init(&info->status, NULL))
-		return (printf("%s", mutex_error));
-    if (init_fork(info))
-        return (printf("Fork init failed\n"));
-    if (init_philo(info))
+    t_philo     *philo;
+	int i;
+    int n;
+
+    n = data->info.nb_philo;
+    philo = malloc(sizeof(t_philo) * n);
+    if (!philo)
         return (1);
+	i = -1;
+	while (++i < n)
+	{
+        philo[i].timer = time_ms();
+		philo[i].id = i + 1;
+        philo[i].fork_l = i;
+		philo[i].fork_r = (i + 1) % n;
+		philo[i].info = data->info;
+        philo[i].is_dead = false;
+	}
+    data->philo = philo;
+	return (0);
+}
+
+int init_info(t_data *data, int ac, char **av)
+{
+    data->info.nb_philo = ft_atoi(av[1]);
+    data->info.tt_die = ft_atoi(av[2]);
+    data->info.tt_eat = ft_atoi(av[3]);
+    data->info.tt_sleep = ft_atoi(av[4]);
+    if (ac == 6)
+        data->info.nb_meal = ft_atoi(av[5]);
+    data->info.nb_meal = 0;
+    if (init_fork(&data->info))
+       return (printf("%s\n", FORK_INIT_ERR));
+    if (pthread_mutex_init(&data->info.status, NULL))
+        return (printf("%s\n", MUTEX_INIT_ERR));
     return (0);
 }
 
+int init_data(t_data *data, int ac, char **av)
+{
+    if (init_info(data, ac, av))
+        return (printf("%s\n", INIT_INFO_ERR));
+    if (init_philo(data))
+        return (printf("%s\n", PHILO_INIT_ERR));
+    return (0);
+}
