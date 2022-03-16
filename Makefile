@@ -42,7 +42,7 @@ $(NAME): $(OBJ)	$(OBJS)
 	@echo "$(GREEN) Compiling..."
 	@$(CC) $(OBJS) -o $(NAME) -lpthread
 	@echo "$(END)"
-	@echo "$(GREEN)  Philosophers Compiled\n\033[0m"
+	@echo "$(GREEN)  Philosophers Compiled\n $(END)"
 
 $(OBJ):
 			@$(MK) $(OBJ)
@@ -54,7 +54,7 @@ clean:
 
 fclean: clean
 	@echo "$(RED) Removing executable..."
-	@rm -f $(PROG)
+	@rm -f $(NAME)
 	@echo "$(END)"
 
 re:			fclean all

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/14 14:27:50 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/15 08:45:19 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int init_info(t_data *data, int ac, char **av)
     data->info.tt_eat = ft_atoi(av[3]);
     data->info.tt_sleep = ft_atoi(av[4]);
     if (ac == 6)
-        data->info.nb_meal = ft_atoi(av[5]);
-    data->info.nb_meal = 0;
+        data->info.num_must_eat = ft_atoi(av[5]);
+    data->info.num_must_eat = 0;
     if (init_fork(&data->info))
        return (printf("%s\n", FORK_INIT_ERR));
     if (pthread_mutex_init(&data->info.status, NULL))

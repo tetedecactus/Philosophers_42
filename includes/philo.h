@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/14 16:44:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:25:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_usleep(long time_in_ms);
 // Routine function 
 void    *routine(void *d);
 void    *check_death(void *d);
+
 // Status function
 void    print_status(t_philo  *philo, char *status);
 void    display_info(void);
