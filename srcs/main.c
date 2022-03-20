@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/14 17:21:47 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/20 19:51:06 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ int    start_diner(t_data *data)
 	}
     if (pthread_create(&data->timere, NULL, check_death, (void *)data))
         return (printf("%s\n", THREAD_ERR));
+    i = -1;
+	while (++i < data->info.nb_philo)
+    {
+        if (pthread_join(data->philo[i].philo_th, NULL))
+            return (printf("%s\n", JOIN_THREAD_ERR));
+    }
+    if (pthread_join(data->timere, NULL))
+            return (printf("%s\n", JOIN_THREAD_ERR));
 }
 
 int clear_table(t_data *data)
@@ -35,8 +43,6 @@ int clear_table(t_data *data)
     i = -1;
 	while (++i < data->info.nb_philo) 
     {
-        if (pthread_join(data->philo[i].philo_th, NULL))
-            return (printf("%s\n", JOIN_THREAD_ERR));
 		if (pthread_mutex_destroy(&data->info.fork[i]))
             return (printf("%s\n", DESTROY_MUTEX_ERR));
 	}
