@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 20:55:55 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 21:42:15 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main(int ac, char **av)
         return (printf("%s\n", ARG_ERR));
     if (check_args(ac, av))
         return (printf("%s\n", ARG_ERR));
+    // info = malloc(sizeof(t_info) * ft_atoi(av[1]));
     if (init_data(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
     if (start_diner(&info))

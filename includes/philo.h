@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 20:44:14 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 21:40:45 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "def.h"
 
 // Init function
-int     init_data(t_info *info, int ac, char **av);
+t_info     *init_data(t_info *info, int ac, char **av);
 
 // Utils function
 int	    ft_atoi(const char *str);
