@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/15 08:45:19 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:58:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,51 +28,54 @@ int init_fork(t_info *info)
     return (0);
 }
 
-int init_philo(t_data *data)
+int init_philo(t_info *info)
 {
     t_philo     *philo;
 	int i;
     int n;
 
-    n = data->info.nb_philo;
+    n = info->nb_philo;
     philo = malloc(sizeof(t_philo) * n);
     if (!philo)
         return (1);
 	i = -1;
 	while (++i < n)
 	{
-        philo[i].timer = time_ms();
 		philo[i].id = i + 1;
-        philo[i].fork_l = i;
-		philo[i].fork_r = (i + 1) % n;
-		philo[i].info = data->info;
-        philo[i].is_dead = false;
+        philo[i].x_ate = 0;
+        philo[i].l_fork = i;
+		philo[i].r_fork = (i + 1) % n;
+        philo[i].t_last_meal = 0;
+		philo[i].infos = info;
 	}
-    data->philo = philo;
 	return (0);
 }
 
-int init_info(t_data *data, int ac, char **av)
+int init_info(t_info *info, int ac, char **av)
 {
-    data->info.nb_philo = ft_atoi(av[1]);
-    data->info.tt_die = ft_atoi(av[2]);
-    data->info.tt_eat = ft_atoi(av[3]);
-    data->info.tt_sleep = ft_atoi(av[4]);
+    info->nb_philo = ft_atoi(av[1]);
+    info->tt_die = ft_atoi(av[2]);
+    info->tt_eat = ft_atoi(av[3]);
+    info->tt_sleep = ft_atoi(av[4]);
     if (ac == 6)
-        data->info.num_must_eat = ft_atoi(av[5]);
-    data->info.num_must_eat = 0;
-    if (init_fork(&data->info))
+        info->num_must_eat = ft_atoi(av[5]);
+    info->num_must_eat = 0;
+    info->dieded = 0;
+    info->all_ate = false;
+    if (init_fork(&info))
        return (printf("%s\n", FORK_INIT_ERR));
-    if (pthread_mutex_init(&data->info.status, NULL))
+    if (pthread_mutex_init(&info->writing_status, NULL))
+        return (printf("%s\n", MUTEX_INIT_ERR));
+    if (pthread_mutex_init(&info->meal_check, NULL))
         return (printf("%s\n", MUTEX_INIT_ERR));
     return (0);
 }
 
-int init_data(t_data *data, int ac, char **av)
+int init_data(t_info *info, int ac, char **av)
 {
-    if (init_info(data, ac, av))
+    if (init_info(info, ac, av))
         return (printf("%s\n", INIT_INFO_ERR));
-    if (init_philo(data))
+    if (init_philo(info))
         return (printf("%s\n", PHILO_INIT_ERR));
     return (0);
 }

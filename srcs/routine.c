@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/20 19:40:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:55:55 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,28 @@ void	*check_death(void *data)
 	t_philo *philo;
 	
 	philo =(t_philo*)data;
-	// ft_usleep(philo->info.tt_die);
+	ft_usleep(philo->info.tt_die);
 	
 }
 
 void    *routine(void *d)
 {
-	t_data *data;
-	// t_philo *philo;
+	// t_data *data;
+	t_philo *philo;
 	
-	data = (t_data*)d;
+	philo = (t_philo *)d;
+	// data = (t_data*)d;
 	// philo = data->philo;
-	if (data->philo->id % 2 == 0)
-		usleep(300);
-	while (data->philo->is_dead == false)
+	// printf("philo id = %d\n", philo->id);
+	if (philo->id % 2 == 0)
+		usleep(5);
+	while (philo->is_dead == false)
 	{
-		if (eat(data->philo))
+		if (eat(philo))
 			break ;
-		if (sleep_dodo(data->philo))
+		if (sleep_dodo(philo))
 			break ;
-		if (think(data->philo))
+		if (think(philo))
 			break ;
 	}
 }
