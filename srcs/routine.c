@@ -6,67 +6,57 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 13:55:55 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 20:40:17 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-int	think(t_philo *philo)
+void	sleep_dodo(t_philo *philo)
 {
+	t_info *info;
+
+	info = philo->infos;
 	print_status(philo, SLEEP);
+	ft_usleep(info->tt_sleep);
 }
 
-int	sleep_dodo(t_philo *philo)
+void	eat(t_philo *philo)
 {
-	print_status(philo, SLEEP);
-	ft_usleep(philo->info.tt_sleep);
-}
+	t_info *info;
 
-int	eat(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->info.fork[philo->fork_l]);
+	info = philo->infos;
+	pthread_mutex_lock(&info->fork[philo->l_fork]);
 	print_status(philo, FORK);
-	pthread_mutex_lock(&philo->info.fork[philo->fork_r]);
+	pthread_mutex_lock(&info->fork[philo->r_fork]);
 	print_status(philo, FORK);
+	pthread_mutex_lock(&info->meal_check);
 	print_status(philo, EAT);
-	ft_usleep(philo->info.tt_eat);
-	philo->timer = time_ms();
-	ft_usleep(philo->info.tt_eat);
-	philo->info.num_have_ate++;
-	// usleep(philo->info.tt_eat * 1000);
-	pthread_mutex_unlock(&philo->info.fork[philo->fork_l]);
-	pthread_mutex_unlock(&philo->info.fork[philo->fork_r]);
+	philo->t_last_meal = time_ms;
+	pthread_mutex_unlock(&info->meal_check);
+	ft_usleep(info->tt_eat);
+	philo->x_ate++;
+	pthread_mutex_unlock(&info->fork[philo->l_fork]);
+	pthread_mutex_unlock(&info->fork[philo->r_fork]);
 
 }
 
-void	*check_death(void *data)
+void    *routine(void *data)
 {
 	t_philo *philo;
+	t_info	*info;
 	
-	philo =(t_philo*)data;
-	ft_usleep(philo->info.tt_die);
-	
-}
-
-void    *routine(void *d)
-{
-	// t_data *data;
-	t_philo *philo;
-	
-	philo = (t_philo *)d;
-	// data = (t_data*)d;
-	// philo = data->philo;
+	philo = (t_philo *)data;
+	info = philo->infos;
 	// printf("philo id = %d\n", philo->id);
-	if (philo->id % 2 == 0)
+	if (!philo->id % 2)
 		usleep(5);
-	while (philo->is_dead == false)
+	while (!info->dieded)
 	{
-		if (eat(philo))
+		eat(philo);
+		if (info->all_ate)
 			break ;
-		if (sleep_dodo(philo))
-			break ;
-		if (think(philo))
-			break ;
+		sleep_dodo(philo);
+		print_status(philo, THINK);
 	}
 }

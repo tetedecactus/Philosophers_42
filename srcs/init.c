@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 19:58:29 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 20:59:01 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int init_philo(t_info *info)
 
 int init_info(t_info *info, int ac, char **av)
 {
+    info =  malloc(sizeof(t_info *) * (ft_atoi(av[1])));
     info->nb_philo = ft_atoi(av[1]);
     info->tt_die = ft_atoi(av[2]);
     info->tt_eat = ft_atoi(av[3]);
@@ -60,7 +61,7 @@ int init_info(t_info *info, int ac, char **av)
     if (ac == 6)
         info->num_must_eat = ft_atoi(av[5]);
     info->num_must_eat = 0;
-    info->dieded = 0;
+    info->dieded = false;
     info->all_ate = false;
     if (init_fork(&info))
        return (printf("%s\n", FORK_INIT_ERR));

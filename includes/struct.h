@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 20:04:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/21 20:45:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ struct s_info;
 typedef	struct			s_philo
 {
 	pthread_t			philo_th;
-	t_info				*infos;
+	struct s_info				*infos;
 	long				t_last_meal;
 	int					id;
 	int					x_ate;
@@ -47,7 +47,7 @@ typedef struct			s_info
 	int					tt_eat;
 	int					tt_sleep;
 	int					num_must_eat;
-	int					dieded;
+	bool				dieded;
 	bool				all_ate;
 } t_info;
 
