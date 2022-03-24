@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 20:40:17 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/24 09:20:15 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	eat(t_philo *philo)
 	philo->x_ate++;
 	pthread_mutex_unlock(&info->fork[philo->l_fork]);
 	pthread_mutex_unlock(&info->fork[philo->r_fork]);
-
 }
 
 void    *routine(void *data)
@@ -48,9 +47,8 @@ void    *routine(void *data)
 	
 	philo = (t_philo *)data;
 	info = philo->infos;
-	// printf("philo id = %d\n", philo->id);
 	if (!philo->id % 2)
-		usleep(5);
+		usleep(300);
 	while (!info->dieded)
 	{
 		eat(philo);

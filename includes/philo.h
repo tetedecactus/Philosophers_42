@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 21:40:45 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/24 09:57:33 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include "def.h"
 
 // Init function
-t_info     *init_data(t_info *info, int ac, char **av);
+int init_philo(t_info *info, int ac, char **av);
+int init_info(t_info *info, int ac, char **av);
 
 // Utils function
 int	    ft_atoi(const char *str);
@@ -32,5 +33,6 @@ void    *routine(void *data);
 // Status function
 void    print_status(t_philo  *philo, char *status);
 void    display_info(void);
+void print_philo_info(t_info *info);
 
 #endif
