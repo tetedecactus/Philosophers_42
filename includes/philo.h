@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/24 09:57:33 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/24 10:35:15 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 // Init function
 int init_philo(t_info *info, int ac, char **av);
 int init_info(t_info *info, int ac, char **av);
+int init_fork(t_info *info);
 
 // Utils function
 int	    ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/24 09:58:44 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/24 10:58:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int    start_diner(t_info *info)
     t_philo *philo;
 	
 	i = -1;
-    philo = info->philo;
+    philo = info->philos;
     info->first_timestamp = time_ms();
-    print_philo_info(info);
     display_info();
+    print_philo_info(info);
 	while (++i < info->nb_philo)
 	{
 		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
@@ -29,6 +29,22 @@ int    start_diner(t_info *info)
         philo[i].t_last_meal = time_ms();
 	}
     return (0);
+}
+
+int clear_table(t_info *info)
+{
+    int i;
+    t_philo *philo;
+    
+    i = -1;
+    philo = info->philos;
+    while (++i < info->nb_philo)
+        pthread_join(philo[i].philo_th, 0);
+    i = -1;
+    while (++i < info->nb_philo)
+        pthread_mutex_destroy(&info->fork[i]);
+    pthread_mutex_destroy(&info->writing_status);
+    pthread_mutex_destroy(&info->meal_check);
 }
 
 int check_args(int ac, char **av)
@@ -54,13 +70,11 @@ int main(int ac, char **av)
         return (printf("%s\n", ARG_ERR));
     if (check_args(ac, av))
         return (printf("%s\n", ARG_ERR));
-    memset(&info, 0, sizeof(t_info));
-    // info = malloc(sizeof(t_info) * ft_atoi(av[1]));
     if (init_philo(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
     if (start_diner(&info))
         return (printf("%s\n", DINER_ERR));
-    // if (clear_table(&info))
-        // return (printf("%s\n", CLEAR_ERR));
+    if (clear_table(&info))
+        return (printf("%s\n", CLEAR_ERR));
     return (0);
 }

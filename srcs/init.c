@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/24 09:47:39 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:01:12 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int init_info(t_info *info, int ac, char **av)
     if (ac == 6)
         info->num_must_eat = ft_atoi(av[5]);
     info->num_must_eat = 0;
+    info->first_timestamp = time_ms();
     info->dieded = false;
     info->all_ate = false;
     if (init_fork(info))
@@ -62,7 +63,7 @@ int init_philo(t_info *info, int ac, char **av)
     n = info->nb_philo;
     philo = malloc(sizeof(t_philo) * n);
     if (!philo)
-        return (NULL);
+        return (1);
 	i = -1;
 	while (++i < n)
 	{
@@ -73,5 +74,6 @@ int init_philo(t_info *info, int ac, char **av)
         philo[i].t_last_meal = 0;
 		philo[i].infos = info;
 	}
+    info->philos = philo;
     return (0);
 }

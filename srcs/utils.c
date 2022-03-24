@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/21 20:47:23 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:02:28 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ long	current_time(t_philo *philo)
 {
 	long time_in_ms;
 
-	time_in_ms = time_ms() - philo->t_last_meal;
+	time_in_ms = time_ms() - philo->infos->first_timestamp;
 	return (time_in_ms);
 }
 
@@ -72,29 +72,3 @@ void	ft_usleep(long time_in_ms)
 	while ((time_ms() - start_time) < time_in_ms)
 		usleep(time_in_ms / 10);
 }
-
-// long long	timestamp(void)
-// {
-// 	struct timeval	t;
-
-// 	gettimeofday(&t, NULL);
-// 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
-// }
-
-// long long	time_diff(long long past, long long pres)
-// {
-// 	return (pres - past);
-// }
-
-// void		smart_sleep(long long time, t_rules *rules)
-// {
-// 	long long i;
-
-// 	i = timestamp();
-// 	while (!(rules->dieded))
-// 	{
-// 		if (time_diff(i, timestamp()) >= time)
-// 			break ;
-// 		usleep(50);
-// 	}
-// }
