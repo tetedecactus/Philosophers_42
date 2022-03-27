@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/24 11:01:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:07:17 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ int init_info(t_info *info, int ac, char **av)
     info->all_ate = false;
     if (init_fork(info))
        return (printf("%s\n", FORK_INIT_ERR));
-    if (pthread_mutex_init(&info->writing_status, NULL))
+    if (pthread_mutex_init(&info->writing_status, NULL) \
+        || pthread_mutex_init(&info->meal_check, NULL) \
+        || pthread_mutex_init(&info->is_dead, NULL))
         return (printf("%s\n", MUTEX_INIT_ERR));
-    if (pthread_mutex_init(&info->meal_check, NULL))
-        return (printf("%s\n", MUTEX_INIT_ERR));
+   
     return (0);
 }
 

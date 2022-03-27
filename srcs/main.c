@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/24 10:58:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:07:37 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int    start_diner(t_info *info)
 	i = -1;
     philo = info->philos;
     info->first_timestamp = time_ms();
-    display_info();
+    // display_info();
     print_philo_info(info);
 	while (++i < info->nb_philo)
 	{
