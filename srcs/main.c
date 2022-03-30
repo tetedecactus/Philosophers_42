@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/27 10:07:37 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:28:45 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int    start_diner(t_info *info)
 	{
 		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
 			return (printf("%s\n", THREAD_ERR));
+        usleep(100);
         philo[i].t_last_meal = time_ms();
 	}
+    
     return (0);
 }
 
@@ -45,6 +47,7 @@ int clear_table(t_info *info)
         pthread_mutex_destroy(&info->fork[i]);
     pthread_mutex_destroy(&info->writing_status);
     pthread_mutex_destroy(&info->meal_check);
+    return (0);
 }
 
 int check_args(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/29 19:49:04 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:29:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&info->meal_check);
 	print_status(philo, EAT);
 	philo->t_last_meal = time_ms();
+    philo->x_ate++;
 	pthread_mutex_unlock(&info->meal_check);
 	ft_usleep(info->tt_eat);
-	philo->x_ate++;
 	pthread_mutex_unlock(&info->fork[philo->l_fork]);
 	pthread_mutex_unlock(&info->fork[philo->r_fork]);
 }
@@ -43,15 +43,21 @@ void	eat(t_philo *philo)
 void	*check_which_die(void *data)
 {
 	t_philo *philo;
+    t_info *info;
 	int n;
-
+    
 	philo = (t_philo *)data;
+    info = philo->infos;
 	n = philo->infos->num_must_eat;
-	ft_usleep(philo->infos->tt_die);
-	if (n != 0 && philo->x_ate == n)
-		philo->infos->dieded = 1;
+	ft_usleep(info->tt_die);
+    pthread_mutex_lock(&info->meal_check);
+	if (n != 0 && philo->x_ate == n) 
+	{
+		info->all_ate++;
+		printf("all ate= %d\n", info->all_ate);
+    }
 	printf("id: %d x ate : %d\n", philo->id, philo->x_ate);
-	
+    pthread_mutex_unlock(&info->meal_check);
 }
 
 void    *routine(void *data)
@@ -67,7 +73,7 @@ void    *routine(void *data)
 	{
 		pthread_create(&philo->checker, NULL, check_which_die, data);
 		eat(philo);
-		if (info->all_ate)
+		if (info->all_ate == 5)
 			break ;
 		sleep_dodo(philo);
 		print_status(philo, THINK);
