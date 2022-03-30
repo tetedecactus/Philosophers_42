@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/30 15:29:34 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:44:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    *routine(void *data)
 	info = philo->infos;
 	if (!philo->id % 2)
 		usleep(300);
-	while (!info->dieded)
+	while (info->dieded == false)
 	{
 		pthread_create(&philo->checker, NULL, check_which_die, data);
 		eat(philo);
@@ -78,8 +78,9 @@ void    *routine(void *data)
 		sleep_dodo(philo);
 		print_status(philo, THINK);
 		pthread_detach(philo->checker);
-		// if (check_meal(philo))
-		if (philo->x_ate == philo->infos->num_must_eat)
+		if (check_meal(philo))
 			break ;
+	// 	if (philo->x_ate == philo->infos->num_must_eat)
+	// 		break ;
 	}
 }

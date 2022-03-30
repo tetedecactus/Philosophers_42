@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:30 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/28 10:57:10 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:45:18 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,32 @@ void   print_status(t_philo  *philo, char *status)
 
     info = philo->infos;
     pthread_mutex_lock(&info->writing_status);
-    if (!info->dieded)
+    if (info->dieded == false)
         printf("| %ld\t  | %d\t  |%s\n", current_time(philo), philo->id, status);
     pthread_mutex_unlock(&info->writing_status);
     return ;
 }
 
-// int check_meal(t_philo *philo)
-// {
-//     if (philo->x_ate == philo->infos->num_must_eat)
-//         return (1);
-// }
+int check_meal(t_philo *philo)
+{
+    t_info *info;
+    int n;
+    
+	n = philo->infos->num_must_eat;
+    info = philo->infos;
+    pthread_mutex_lock(&info->meal_check);
+	if (n != 0 && philo->x_ate == n) 
+	{
+		info->all_ate++;
+		printf("all ate= %d\n", info->all_ate);
+    }
+    else if (info->all_ate == n) {
+        info->dieded = true;    
+        print_status(philo, DEAD);
+        pthread_mutex_unlock(&info->meal_check);
+        return (1);
+    }
+	printf("id: %d x ate : %d\n", philo->id, philo->x_ate);
+    pthread_mutex_unlock(&info->meal_check);
+    return (0);
+}
