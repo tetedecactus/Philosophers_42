@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/30 15:44:29 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/30 21:13:31 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,17 @@ void    *routine(void *data)
 	{
 		pthread_create(&philo->checker, NULL, check_which_die, data);
 		eat(philo);
-		if (info->all_ate == 5)
+		if (info->all_ate == 5) {
+			printf("philo: %d break ;\n", philo->id);
 			break ;
+		}
 		sleep_dodo(philo);
 		print_status(philo, THINK);
 		pthread_detach(philo->checker);
-		if (check_meal(philo))
+		if (check_meal(philo)) {
+			printf("Sa sort surment ici\n");
 			break ;
+		}
 	// 	if (philo->x_ate == philo->infos->num_must_eat)
 	// 		break ;
 	}
