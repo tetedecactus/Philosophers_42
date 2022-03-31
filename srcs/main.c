@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/30 15:28:45 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/30 21:05:00 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int    start_diner(t_info *info)
 int clear_table(t_info *info)
 {
     int i;
-    t_philo *philo;
     
     i = -1;
-    philo = info->philos;
     while (++i < info->nb_philo)
-        pthread_join(philo[i].philo_th, 0);
+        pthread_join(info->philos[i].philo_th, 0);
     i = -1;
     while (++i < info->nb_philo)
         pthread_mutex_destroy(&info->fork[i]);
     pthread_mutex_destroy(&info->writing_status);
     pthread_mutex_destroy(&info->meal_check);
+    free(info->fork);
+    free(info->philos);
     return (0);
 }
 
