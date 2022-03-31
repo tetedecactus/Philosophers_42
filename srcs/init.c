@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/27 10:07:17 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/31 11:37:27 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int init_info(t_info *info, int ac, char **av)
     info->tt_sleep = ft_atoi(av[4]);
     if (ac == 6)
         info->num_must_eat = ft_atoi(av[5]);
-    info->num_must_eat = 0;
+    else 
+        info->num_must_eat = 0;
     info->first_timestamp = time_ms();
     info->dieded = false;
     info->all_ate = false;
