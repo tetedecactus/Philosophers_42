@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/31 11:37:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:52:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int init_fork(t_info *info)
 
 int init_info(t_info *info, int ac, char **av)
 {
-    // t_info *info;
-    // info =  malloc(sizeof(t_info));
-    
     info->nb_philo = ft_atoi(av[1]);
     info->tt_die = ft_atoi(av[2]);
     info->tt_eat = ft_atoi(av[3]);
@@ -50,7 +47,6 @@ int init_info(t_info *info, int ac, char **av)
         || pthread_mutex_init(&info->meal_check, NULL) \
         || pthread_mutex_init(&info->is_dead, NULL))
         return (printf("%s\n", MUTEX_INIT_ERR));
-   
     return (0);
 }
 
