@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:30 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/31 07:38:08 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:39:36 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int check_meal(t_philo *philo)
     int n;
     
 	n = philo->infos->num_must_eat;
-    info = philo->infos;
-    printf("all ate = %d\n", info->all_ate);
+    info = philo->infos;§
     pthread_mutex_lock(&info->meal_check);
 	if (n != 0 && philo->x_ate == n) 
 	{

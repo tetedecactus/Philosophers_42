@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/31 14:24:40 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:40:27 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	eat(t_philo *philo)
 	print_status(philo, FORK);
 	pthread_mutex_lock(&info->meal_check);
 	print_status(philo, EAT);
-	philo->t_last_meal = time_ms();
+	philo->t_last_meal = time_ms();//
     philo->x_ate++;
 	pthread_mutex_unlock(&info->meal_check);
 	ft_usleep(info->tt_eat);

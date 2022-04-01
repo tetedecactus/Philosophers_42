@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/31 13:49:57 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/01 11:37:30 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int  ft_isdigit(int c)
     return ((c >= '0' && c <= '9'));
 }
 
-// Thid function give the delta between now and the time we start
+/* This function give the delta between now and the time we start*/
 long	current_time(t_philo *philo)
 {
 	long time_in_ms;
@@ -52,7 +52,7 @@ long	current_time(t_philo *philo)
 	return (time_in_ms);
 }
 
-// This function give the actual time in micro second
+/* This function give the actual time in micro second */
 long time_ms(void)
 {
   struct timeval time;
