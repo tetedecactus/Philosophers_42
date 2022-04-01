@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/30 20:49:18 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/01 06:32:17 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int init_info(t_info *info, int ac, char **av)
         || pthread_mutex_init(&info->meal_check, NULL) \
         || pthread_mutex_init(&info->is_dead, NULL))
         return (printf("%s\n", MUTEX_INIT_ERR));
-   
     return (0);
 }
 
