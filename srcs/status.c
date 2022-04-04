@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:30 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/01 11:39:36 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:11:39 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void print_philo_info(t_info *info)
         printf("info->philo[i].info.time_to_death = %d\n", info->philos[i].infos->tt_die);
         printf("info->philo[i].info.time_to_sleep = %d\n", info->philos[i].infos->tt_sleep);
         printf("info->philo[i].info.time_to_eat = %d\n", info->philos[i].infos->tt_eat);
-        
     }
 }
 
@@ -48,7 +47,7 @@ int check_meal(t_philo *philo)
     int n;
     
 	n = philo->infos->num_must_eat;
-    info = philo->infos;§
+    info = philo->infos;
     pthread_mutex_lock(&info->meal_check);
 	if (n != 0 && philo->x_ate == n) 
 	{
@@ -61,10 +60,10 @@ int check_meal(t_philo *philo)
         pthread_mutex_unlock(&info->meal_check);
         return (1);
     }
-    else {
+    else 
+    {
         printf("id: %d x ate : %d\n", philo->id, philo->x_ate);
         pthread_mutex_unlock(&info->meal_check);
-        return (0);
-        
     }
+    return (0);
 }

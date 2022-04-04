@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/30 21:08:17 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/04 14:48:46 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_info
 	pthread_mutex_t 	is_dead;
 	pthread_mutex_t		meal_check;
 	pthread_mutex_t		writing_status;
+	pthread_t 			waiter;
 	t_philo				*philos;
 	long				first_timestamp;
 	int					nb_philo;

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/30 10:36:40 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:17:11 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int     check_meal(t_philo *philo);
 void    print_status(t_philo  *philo, char *status);
 void    display_info(void);
 void    print_philo_info(t_info *info);
+void    *start_diner(void *data);
 
 #endif

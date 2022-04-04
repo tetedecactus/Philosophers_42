@@ -6,18 +6,20 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/03/31 13:54:28 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:17:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-int    start_diner(t_info *info)
+void   *start_diner(void *data)
 {
+    t_info *info;
     int i;
     t_philo *philo;
 	
 	i = -1;
+    info = (t_info*)data;
     philo = info->philos;
     info->first_timestamp = time_ms();
     display_info();
@@ -25,9 +27,18 @@ int    start_diner(t_info *info)
 	while (++i < info->nb_philo)
 	{
 		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
-			return (printf("%s\n", THREAD_ERR));
+         {
+            printf("%s\n", THREAD_ERR);
+			return NULL; 
+         }
         usleep(16000);
 	}
+    return (0);
+}
+
+int    waiter_punch_in(t_info *info)
+{
+    pthread_create(&info->waiter, NULL, start_diner, &info);
     return (0);
 }
 
@@ -73,7 +84,7 @@ int main(int ac, char **av)
         return (printf("%s\n", ARG_ERR));
     if (init_philo(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
-    if (start_diner(&info))
+    if (waiter_punch_in(&info))
         return (printf("%s\n", DINER_ERR));
     if (clear_table(&info))
         return (printf("%s\n", CLEAR_ERR));
