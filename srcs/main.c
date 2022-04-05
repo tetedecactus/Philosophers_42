@@ -6,39 +6,31 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/04 15:22:46 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/05 13:47:27 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-void   *start_diner(void *data)
+int     start_diner(t_info *info)
 {
-    t_info *info;
     int i;
     t_philo *philo;
 	
 	i = -1;
-    info = (t_info*)data;
     philo = info->philos;
-    info->first_timestamp = time_ms();
+    // info->first_timestamp = time_ms();
     display_info();
     // print_philo_info(info);
 	while (++i < info->nb_philo)
 	{
+        if (info->nb_philo % 2 == 0)
+            usleep(16000);
 		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
-         {
             printf("%s\n", THREAD_ERR);
-			return NULL; 
-         }
-        usleep(16000);
 	}
-    return (0);
-}
-
-int    waiter_punch_in(t_info *info)
-{
-    pthread_create(&info->waiter, NULL, start_diner, &info);
+    check_which_die(info);
+    
     return (0);
 }
 
@@ -47,8 +39,8 @@ int clear_table(t_info *info)
     int i;
     
     i = -1;
-    // while (++i < info->nb_philo)
-    //     pthread_join(info->philos[i].philo_th, 0);
+    while (++i < info->nb_philo)
+        pthread_join(info->philos[i].philo_th, 0);
     pthread_join(info->waiter, NULL);
     i = -1;
     while (++i < info->nb_philo)
@@ -85,9 +77,9 @@ int main(int ac, char **av)
         return (printf("%s\n", ARG_ERR));
     if (init_philo(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
-    if (waiter_punch_in(&info))
+    if (start_diner(&info))
         return (printf("%s\n", DINER_ERR));
-    // if (clear_table(&info))
-    //     return (printf("%s\n", CLEAR_ERR));
+    if (clear_table(&info))
+        return (printf("%s\n", CLEAR_ERR));
     return (0);
 }

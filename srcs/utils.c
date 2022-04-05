@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/01 11:37:30 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/05 13:40:40 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int  ft_isdigit(int c)
 }
 
 /* This function give the delta between now and the time we start*/
-long	current_time(t_philo *philo)
+long	current_time(t_philo philo)
 {
 	long time_in_ms;
 
-	time_in_ms = time_ms() - philo->infos->first_timestamp;
+	time_in_ms = time_ms() - philo.present_time;
 	return (time_in_ms);
 }
 

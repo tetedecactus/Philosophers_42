@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/04 15:17:11 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/05 13:44:39 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int init_info(t_info *info, int ac, char **av);
 int init_fork(t_info *info);
 
 // Utils function
-long	current_time(t_philo *philo);
+long	current_time(t_philo philo);
 long    time_ms(void);
 int	    ft_atoi(const char *str);
 int     ft_isdigit(int c);
@@ -36,6 +36,6 @@ int     check_meal(t_philo *philo);
 void    print_status(t_philo  *philo, char *status);
 void    display_info(void);
 void    print_philo_info(t_info *info);
-void    *start_diner(void *data);
+int     check_which_die(t_info *info);
 
 #endif

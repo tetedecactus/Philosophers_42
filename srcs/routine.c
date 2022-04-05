@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/04 15:17:57 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/05 14:04:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	eat(t_philo *philo)
 	print_status(philo, FORK);
 	pthread_mutex_lock(&info->fork[philo->l_fork]);
 	print_status(philo, FORK);
+	philo->time_next_meal = time_ms() + (long)philo->infos->tt_die;
 	pthread_mutex_lock(&info->meal_check);
 	print_status(philo, EAT);
-	philo->t_last_meal = time_ms();//
+	philo->present_time = time_ms();//
     philo->x_ate++;
 	pthread_mutex_unlock(&info->meal_check);
 	ft_usleep(info->tt_eat);
@@ -40,26 +41,19 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&info->fork[philo->r_fork]);
 }
 
-void	*check_which_die(void *data)
+int check_which_die(t_info *info)
 {
-	t_philo *philo;
-    t_info *info;
-	int n;
-    
-	philo = (t_philo *)data;
-    info = philo->infos;
-	n = philo->infos->num_must_eat;
-	ft_usleep(info->tt_die);
-    pthread_mutex_lock(&info->meal_check);
-	if (n && philo->x_ate == n ) 
+	int i;
+
+	i = 0;
+	while (1)
 	{
-		info->all_ate++;
-		printf("all ate = %d\n", info->all_ate);
-		// exit(1);
-    }
-	printf("id: %d x ate : %d\n", philo->id, philo->x_ate);
-    pthread_mutex_unlock(&info->meal_check);
-	return NULL;
+		long time;
+		// comparer present et last meal entre present et last
+		current_time(info->philos[i++]);
+		if (i == info->nb_philo)
+			i = 0;
+	}
 }
 
 void    *routine(void *data)
@@ -69,16 +63,14 @@ void    *routine(void *data)
 	
 	philo = (t_philo *)data;
 	info = philo->infos;
-	if (!philo->id % 2)
-		usleep(300);
 	while (info->dieded == false)
 	{
 		// pthread_create(&philo->checker, NULL, check_which_die, data);
 		eat(philo);
-		if (info->all_ate == info->nb_philo) {
-			printf("philo: %d break ;\n", philo->id);
-			break ;
-		}
+		// if (info->all_ate == info->nb_philo) {
+		// 	printf("philo: %d break ;\n", philo->id);
+		// 	break ;
+		// }
 		sleep_dodo(philo);
 		print_status(philo, THINK);
 		// pthread_detach(philo->checker);
