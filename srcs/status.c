@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:30 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/05 13:45:49 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:11:01 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void   print_status(t_philo  *philo, char *status)
     info = philo->infos;
     pthread_mutex_lock(&info->writing_status);
     if (info->dieded == false)
-        printf("| %ld\t  | %d\t  |%s\n", current_time(*philo), philo->id, status);
+        printf("| %ld\t  | %d\t  |%s\n", current_time(philo), philo->id, status);
     pthread_mutex_unlock(&info->writing_status);
     return ;
 }

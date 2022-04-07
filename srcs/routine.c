@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 14:33:35 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:09:38 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void 	*is_dead(void *data)
 		philo->infos->dieded = true;
 		pthread_mutex_unlock(&philo->infos->meal_check);
 	}
+	return NULL;
 }
 
 void    *routine(void *data)

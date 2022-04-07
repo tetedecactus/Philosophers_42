@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 11:00:10 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:10:48 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int init_info(t_info *info, int ac, char **av);
 int init_fork(t_info *info);
 
 // Utils function
-long	current_time(t_philo philo);
+long	current_time(t_philo *philo);
 long    time_ms(void);
 int	    ft_atoi(const char *str);
 int     ft_isdigit(int c);
