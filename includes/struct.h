@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/05 13:53:53 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:13:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef	struct			s_philo
 	pthread_t			philo_th;
 	pthread_t 			checker;
 	struct s_info		*infos;
-	long				time_next_meal;
+	long				time_last_meal;
 	long				present_time;
 	int					id;
 	int					x_ate;
@@ -50,8 +50,9 @@ typedef struct			s_info
 	int					tt_eat;
 	int					tt_sleep;
 	int					num_must_eat;
-	bool				dieded;
 	int					all_ate;
+	long 				start_time;
+	bool 				dieded;
 } t_info;
 
 #endif

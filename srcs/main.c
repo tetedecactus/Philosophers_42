@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/05 13:47:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:29:12 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int     start_diner(t_info *info)
 	
 	i = -1;
     philo = info->philos;
-    // info->first_timestamp = time_ms();
+    info->start_time = time_ms();
     display_info();
     // print_philo_info(info);
 	while (++i < info->nb_philo)
@@ -27,10 +27,8 @@ int     start_diner(t_info *info)
         if (info->nb_philo % 2 == 0)
             usleep(16000);
 		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
-            printf("%s\n", THREAD_ERR);
+            return (printf("%s\n", THREAD_ERR));
 	}
-    check_which_die(info);
-    
     return (0);
 }
 
@@ -71,9 +69,7 @@ int main(int ac, char **av)
 { 
     t_info  info;
     
-    if (ac < 5 || ac > 6)
-        return (printf("%s\n", ARG_ERR));
-    if (check_args(ac, av))
+    if (ac < 5 || ac > 6 || check_args(ac, av))
         return (printf("%s\n", ARG_ERR));
     if (init_philo(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
