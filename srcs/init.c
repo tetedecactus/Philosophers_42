@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/06 19:57:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:52:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int init_info(t_info *info, int ac, char **av)
     if (ac == 6)
         info->num_must_eat = ft_atoi(av[5]);
     else 
-        info->num_must_eat = 0;
-    // info->first_timestamp = time_ms();
-    info->dieded = false;
+        info->num_must_eat = -1;
     info->all_ate = false;
+    info->dieded = false;
+    info->start_time = 0;
     if (init_fork(info))
        return (printf("%s\n", FORK_INIT_ERR));
     if (pthread_mutex_init(&info->writing_status, NULL) \
@@ -50,14 +50,11 @@ int init_info(t_info *info, int ac, char **av)
     return (0);
 }
 
-int init_philo(t_info *info, int ac, char **av)
+int init_philo(t_info *info, t_philo *philo, int ac, char **av)
 {
-    t_philo     *philo;
 	int i;
     int n;
     
-    init_info(info, ac, av);
-
     n = info->nb_philo;
     philo = malloc(sizeof(t_philo) * n);
     if (!philo)
@@ -69,10 +66,9 @@ int init_philo(t_info *info, int ac, char **av)
         philo[i].x_ate = 0;
         philo[i].l_fork = i;
 		philo[i].r_fork = (i + 1) % n;
-        philo[i].present_time =  time_ms();
-        philo[i].time_next_meal = (time_ms + (long)info->tt_eat);
+        philo[i].present_time =  0;
+        philo[i].time_last_meal = 0;
 		philo[i].infos = info;
 	}
-    info->philos = philo;
     return (0);
 }

@@ -6,49 +6,45 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/06 19:58:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:58:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-int     start_diner(t_info *info)
+int     start_diner(t_info *info, t_philo *philo)
 {
     int i;
-    t_philo *philo;
 	
 	i = -1;
-    philo = info->philos;
-    // info->first_timestamp = time_ms();
+    info->start_time = time_ms();
     display_info();
-    // print_philo_info(info);
+    print_philo_info(philo, info);
 	while (++i < info->nb_philo)
 	{
         if (info->nb_philo % 2 == 0)
             usleep(16000);
 		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
-            printf("%s\n", THREAD_ERR);
+            return (printf("%s\n", THREAD_ERR));
 	}
-    check_which_die(info);
-    
     return (0);
 }
 
-int clear_table(t_info *info)
+int clear_table(t_info *info, t_philo *philo)
 {
     int i;
     
     i = -1;
     while (++i < info->nb_philo)
-        pthread_join(info->philos[i].philo_th, 0);
-    pthread_join(info->waiter, NULL);
+        pthread_join(philo[i].philo_th, 0);
+    pthread_join(philo->checker, NULL);
     i = -1;
     while (++i < info->nb_philo)
         pthread_mutex_destroy(&info->fork[i]);
     pthread_mutex_destroy(&info->writing_status);
     pthread_mutex_destroy(&info->meal_check);
     free(info->fork);
-    free(info->philos);
+    // free(philo);
     return (0);
 }
 
@@ -70,14 +66,17 @@ int check_args(int ac, char **av)
 int main(int ac, char **av)
 { 
     t_info  info;
+    t_philo *philo;
     
     if (ac < 5 || ac > 6 || check_args(ac, av))
         return (printf("%s\n", ARG_ERR));
-    if (init_philo(&info, ac, av))
+    if (init_info(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
-    if (start_diner(&info))
+    if (init_philo(&info, philo, ac, av))
+        return (printf("%s\n", INIT_DATA_ERR));
+    if (start_diner(&info , philo))
         return (printf("%s\n", DINER_ERR));
-    if (clear_table(&info))
+    if (clear_table(&info, philo))
         return (printf("%s\n", CLEAR_ERR));
     return (0);
 }

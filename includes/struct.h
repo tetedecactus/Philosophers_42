@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/06 19:56:32 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:40:05 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef	struct			s_philo
 	pthread_t			philo_th;
 	pthread_t 			checker;
 	struct s_info		*infos;
-	long				time_next_meal;
+	long				time_last_meal;
 	long				present_time;
 	int					id;
 	int					x_ate;
@@ -43,15 +43,15 @@ typedef struct			s_info
 	pthread_mutex_t 	is_dead;
 	pthread_mutex_t		meal_check;
 	pthread_mutex_t		writing_status;
-	pthread_t 			waiter;
-	t_philo				*philos;
+	// t_philo				*philos;
 	int					nb_philo;
 	int					tt_die;
 	int					tt_eat;
 	int					tt_sleep;
 	int					num_must_eat;
 	int					all_ate;
-	bool				dieded;
+	long 				start_time;
+	bool 				dieded;
 } t_info;
 
 #endif

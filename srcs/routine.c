@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/05 14:04:04 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:37:23 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,100 @@
 
 void	sleep_dodo(t_philo *philo)
 {
-	t_info *info;
-
-	info = philo->infos;
-	print_status(philo, SLEEP);
-	ft_usleep(info->tt_sleep);
+	print_status(philo, SLEEP, 0);
+	ft_usleep(philo->infos->tt_sleep);
 }
 
 void	eat(t_philo *philo)
 {
-	t_info *info;
-
-	info = philo->infos;
-	pthread_mutex_lock(&info->fork[philo->r_fork]);
-	print_status(philo, FORK);
-	pthread_mutex_lock(&info->fork[philo->l_fork]);
-	print_status(philo, FORK);
-	philo->time_next_meal = time_ms() + (long)philo->infos->tt_die;
-	pthread_mutex_lock(&info->meal_check);
-	print_status(philo, EAT);
-	philo->present_time = time_ms();//
+	pthread_mutex_lock(&philo->infos->fork[philo->r_fork]);
+	print_status(philo, FORK, 0);
+	if (philo->infos->nb_philo == 1)
+	{
+		pthread_mutex_unlock(&philo->infos->fork[philo->r_fork]);
+		ft_usleep(philo->infos->tt_die);
+		return ;
+	}
+	pthread_mutex_lock(&philo->infos->fork[philo->l_fork]);
+	print_status(philo, FORK, 0);
+	pthread_mutex_lock(&philo->infos->meal_check);
+	print_status(philo, EAT, 0);
     philo->x_ate++;
-	pthread_mutex_unlock(&info->meal_check);
-	ft_usleep(info->tt_eat);
-	pthread_mutex_unlock(&info->fork[philo->l_fork]);
-	pthread_mutex_unlock(&info->fork[philo->r_fork]);
+	philo->time_last_meal = time_ms();
+	pthread_mutex_unlock(&philo->infos->meal_check);
+	ft_usleep(philo->infos->tt_eat);
+	pthread_mutex_unlock(&philo->infos->fork[philo->l_fork]);
+	pthread_mutex_unlock(&philo->infos->fork[philo->r_fork]);
 }
 
-int check_which_die(t_info *info)
+void 	*is_dead(void *data)
 {
-	int i;
+	t_philo *philo;
 
-	i = 0;
-	while (1)
+	philo = (t_philo *)data;
+	while (philo->infos->dieded == false)
 	{
-		long time;
-		// comparer present et last meal entre present et last
-		current_time(info->philos[i++]);
-		if (i == info->nb_philo)
-			i = 0;
+		pthread_mutex_lock(&philo->infos->meal_check);
+		if (time_ms() - philo->time_last_meal >= philo->infos->tt_die)
+		{
+			pthread_mutex_unlock(&philo->infos->meal_check);
+			pthread_mutex_lock(&philo->infos->writing_status);
+			print_status(philo, DEAD, 1);
+			pthread_mutex_unlock(&philo->infos->writing_status);
+		}
+		else
+			pthread_mutex_unlock(&philo->infos->meal_check);
+		pthread_mutex_lock(&philo->infos->meal_check);
+		philo->infos->dieded = true;
+		pthread_mutex_unlock(&philo->infos->meal_check);
 	}
+	return NULL;
 }
 
 void    *routine(void *data)
 {
 	t_philo *philo;
-	t_info	*info;
-	
+
 	philo = (t_philo *)data;
-	info = philo->infos;
-	while (info->dieded == false)
+	philo->time_last_meal = philo->infos->start_time;
+	if (pthread_create(&philo->checker, NULL, &is_dead, philo))
+		perror("cacacacaacacaca");
+	if (!philo->infos->nb_philo % 2)
+			ft_usleep(100);
+	while (philo->infos->dieded == false)
 	{
-		// pthread_create(&philo->checker, NULL, check_which_die, data);
 		eat(philo);
-		// if (info->all_ate == info->nb_philo) {
-		// 	printf("philo: %d break ;\n", philo->id);
-		// 	break ;
-		// }
-		sleep_dodo(philo);
-		print_status(philo, THINK);
-		// pthread_detach(philo->checker);
-		if (check_meal(philo) != 0) {
-			printf("Sa sort surment ici\n");
-			break ;
+		if (philo->infos->num_must_eat != -1 && philo->x_ate == philo->infos->num_must_eat)
+		{
+			pthread_mutex_lock(&philo->infos->is_dead);
+			philo->infos->dieded = true;
+			pthread_mutex_unlock(&philo->infos->is_dead);
+			return NULL;
 		}
+		sleep_dodo(philo);
+		print_status(philo, THINK, 0);
 	}
 	return NULL;
 }
+
+// void	*routine(void *arg)
+// {
+// 	t_p	*p;
+// 	int	stop;
+
+// 	p = (t_p *)arg;
+// 	p->t_last_eat = p->info->t_start;
+// 	if (pthread_create(&p->faucheuse, NULL, &is_dead, p))
+// 		perror("pthread_create failed");
+// 	stop = 0;
+// 	while (!stop)
+// 	{
+// 		activity(p);
+// 		pthread_mutex_lock(&p->info->m_stop);
+// 		stop = p->info->stop + p->stop;
+// 		pthread_mutex_unlock(&p->info->m_stop);
+// 	}
+// 	if (pthread_join(p->faucheuse, NULL))
+// 		perror("pthread_join failed");
+// 	return (NULL);
+// }
