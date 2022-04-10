@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 20:52:04 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:11:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int init_info(t_info *info, int ac, char **av)
     else 
         info->num_must_eat = -1;
     info->all_ate = false;
-    info->dieded = false;
+    info->stop = 0;
     info->start_time = 0;
     if (init_fork(info))
        return (printf("%s\n", FORK_INIT_ERR));
@@ -50,7 +50,7 @@ int init_info(t_info *info, int ac, char **av)
     return (0);
 }
 
-int init_philo(t_info *info, t_philo *philo, int ac, char **av)
+t_philo *init_philo(t_info *info, t_philo *philo, int ac, char **av)
 {
 	int i;
     int n;
@@ -58,7 +58,7 @@ int init_philo(t_info *info, t_philo *philo, int ac, char **av)
     n = info->nb_philo;
     philo = malloc(sizeof(t_philo) * n);
     if (!philo)
-        return (1);
+        return (NULL);
 	i = -1;
 	while (++i < n)
 	{
@@ -68,7 +68,8 @@ int init_philo(t_info *info, t_philo *philo, int ac, char **av)
 		philo[i].r_fork = (i + 1) % n;
         philo[i].present_time =  0;
         philo[i].time_last_meal = 0;
+        philo[i].stop = 0;
 		philo[i].infos = info;
 	}
-    return (0);
+    return (philo);
 }

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 20:40:05 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:54:24 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef	struct			s_philo
 	int					x_ate;
 	int					l_fork;
 	int					r_fork;
+	int 				stop;
 }						t_philo;
 
 typedef struct			s_info
@@ -51,7 +52,7 @@ typedef struct			s_info
 	int					num_must_eat;
 	int					all_ate;
 	long 				start_time;
-	bool 				dieded;
+	int 				stop;
 } t_info;
 
 #endif

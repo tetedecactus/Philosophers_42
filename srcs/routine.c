@@ -6,19 +6,13 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 20:37:23 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:54:47 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
 
-void	sleep_dodo(t_philo *philo)
-{
-	print_status(philo, SLEEP, 0);
-	ft_usleep(philo->infos->tt_sleep);
-}
-
-void	eat(t_philo *philo)
+void	right_handed(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->infos->fork[philo->r_fork]);
 	print_status(philo, FORK, 0);
@@ -30,9 +24,32 @@ void	eat(t_philo *philo)
 	}
 	pthread_mutex_lock(&philo->infos->fork[philo->l_fork]);
 	print_status(philo, FORK, 0);
-	pthread_mutex_lock(&philo->infos->meal_check);
 	print_status(philo, EAT, 0);
-    philo->x_ate++;
+	philo->x_ate++;
+	pthread_mutex_lock(&philo->infos->meal_check);
+	philo->time_last_meal = time_ms();
+	pthread_mutex_unlock(&philo->infos->meal_check);
+	ft_usleep(philo->infos->tt_eat);
+	printf("eatinnnf");
+	pthread_mutex_unlock(&philo->infos->fork[philo->r_fork]);
+	pthread_mutex_unlock(&philo->infos->fork[philo->l_fork]);
+}
+
+void	left_handed(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->infos->fork[philo->l_fork]);
+	print_status(philo, FORK, 0);
+	if (philo->infos->nb_philo == 1)
+	{
+		pthread_mutex_unlock(&philo->infos->fork[philo->l_fork]);
+		ft_usleep(philo->infos->tt_die);
+		return ;
+	}
+	pthread_mutex_lock(&philo->infos->fork[philo->r_fork]);
+	print_status(philo, FORK, 0);
+	print_status(philo, EAT, 0);
+	philo->x_ate++;
+	pthread_mutex_lock(&philo->infos->meal_check);
 	philo->time_last_meal = time_ms();
 	pthread_mutex_unlock(&philo->infos->meal_check);
 	ft_usleep(philo->infos->tt_eat);
@@ -40,12 +57,22 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->infos->fork[philo->r_fork]);
 }
 
+void	eat(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+		right_handed(philo);
+	else
+		left_handed(philo);
+}
+
 void 	*is_dead(void *data)
 {
 	t_philo *philo;
+	int stop;
 
 	philo = (t_philo *)data;
-	while (philo->infos->dieded == false)
+	stop = 0;
+	while (!stop)
 	{
 		pthread_mutex_lock(&philo->infos->meal_check);
 		if (time_ms() - philo->time_last_meal >= philo->infos->tt_die)
@@ -54,11 +81,12 @@ void 	*is_dead(void *data)
 			pthread_mutex_lock(&philo->infos->writing_status);
 			print_status(philo, DEAD, 1);
 			pthread_mutex_unlock(&philo->infos->writing_status);
+			printf("poggenner");
 		}
 		else
 			pthread_mutex_unlock(&philo->infos->meal_check);
 		pthread_mutex_lock(&philo->infos->meal_check);
-		philo->infos->dieded = true;
+		stop = philo->infos->stop + philo->stop;
 		pthread_mutex_unlock(&philo->infos->meal_check);
 	}
 	return NULL;
@@ -67,47 +95,38 @@ void 	*is_dead(void *data)
 void    *routine(void *data)
 {
 	t_philo *philo;
+	int stop;
 
 	philo = (t_philo *)data;
 	philo->time_last_meal = philo->infos->start_time;
 	if (pthread_create(&philo->checker, NULL, &is_dead, philo))
 		perror("cacacacaacacaca");
-	if (!philo->infos->nb_philo % 2)
-			ft_usleep(100);
-	while (philo->infos->dieded == false)
+	stop = 0;
+	while (!stop)
 	{
+		printf("philo %d take place at  the table\n", philo->id);
 		eat(philo);
+		printf("afther eat");
 		if (philo->infos->num_must_eat != -1 && philo->x_ate == philo->infos->num_must_eat)
 		{
+			printf("WTF");
 			pthread_mutex_lock(&philo->infos->is_dead);
-			philo->infos->dieded = true;
+			philo->stop = 1;
+			printf("philo %d left table \n", philo->id);
 			pthread_mutex_unlock(&philo->infos->is_dead);
 			return NULL;
 		}
 		sleep_dodo(philo);
 		print_status(philo, THINK, 0);
+		pthread_mutex_lock(&philo->infos->is_dead);
+		stop = philo->infos->stop + philo->stop;
+		printf("philo %d left table \n", philo->id);
+		pthread_mutex_unlock(&philo->infos->is_dead);
+		// if (!philo->id % 2)
+		// 	ft_usleep(100);
+		printf("id = %d, stop = %d\n", philo->id, stop);
 	}
+	if (pthread_join(philo->checker, NULL))
+		perror("pthread_join failed");
 	return NULL;
 }
-
-// void	*routine(void *arg)
-// {
-// 	t_p	*p;
-// 	int	stop;
-
-// 	p = (t_p *)arg;
-// 	p->t_last_eat = p->info->t_start;
-// 	if (pthread_create(&p->faucheuse, NULL, &is_dead, p))
-// 		perror("pthread_create failed");
-// 	stop = 0;
-// 	while (!stop)
-// 	{
-// 		activity(p);
-// 		pthread_mutex_lock(&p->info->m_stop);
-// 		stop = p->info->stop + p->stop;
-// 		pthread_mutex_unlock(&p->info->m_stop);
-// 	}
-// 	if (pthread_join(p->faucheuse, NULL))
-// 		perror("pthread_join failed");
-// 	return (NULL);
-// }

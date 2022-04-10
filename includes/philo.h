@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 20:58:05 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:31:55 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "def.h"
 
 // Init function
-int init_philo(t_info *info, t_philo *philo, int ac, char **av);
+t_philo *init_philo(t_info *info, t_philo *philo, int ac, char **av);
 int init_info(t_info *info, int ac, char **av);
 int init_fork(t_info *info);
 
@@ -34,7 +34,9 @@ void    *routine(void *data);
 // Status function
 void    print_status(t_philo  *philo, char *status, int dead);
 void    display_info(void);
-void print_philo_info(t_philo *philo, t_info *info);
+void    print_philo_info(t_philo *philo, t_info *info);
 int     check_which_die(t_info *info);
+void 	*is_dead(void *data);
+void	sleep_dodo(t_philo *philo);
 
 #endif
