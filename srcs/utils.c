@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/11 13:41:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:32:43 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ long long	current_time(t_philo *philo)
 {
 	long long time_in_ms;
 
-	time_in_ms = time_ms() - philo->infos->start_time;
+	time_in_ms = (time_ms() - philo->infos->start_time);
 	return (time_in_ms);
 }
 

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/11 13:13:22 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:39:19 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int clear_table(t_info *info, t_philo *philo)
     
     i = -1;
     printf("rentre clear table philo id = %d\n", philo->id);
-    // pthread_join(philo->checker, NULL);
     pthread_mutex_destroy(&info->writing_status);
     pthread_mutex_destroy(&info->meal_check);
     // free(philo);

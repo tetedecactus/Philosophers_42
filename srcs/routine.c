@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/11 15:46:32 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:40:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	right_handed(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
-	print_status(philo, "take fork");
-	// print_status(philo, FORK, 0);
+	// print_status(philo, "take fork");
+	print_status(philo, FORK, 0);
 	if (philo->infos->nb_philo == 1)
 	{
 		pthread_mutex_unlock(philo->r_fork);
@@ -24,10 +24,10 @@ void	right_handed(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(philo->l_fork);
-	print_status(philo, "take fork");
-	// print_status(philo, FORK, 0);
-	// print_status(philo, EAT, 0);
-	print_status(philo, "is eating");
+	// print_status(philo, "take fork");
+	// print_status(philo, "is eating");
+	print_status(philo, FORK, 0);
+	print_status(philo, EAT, 0);
 	philo->x_ate++;
 	// pthread_mutex_lock(&philo->infos->meal_check);
 	philo->time_last_meal = time_ms();
@@ -40,19 +40,20 @@ void	right_handed(t_philo *philo)
 void	left_handed(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	print_status(philo, "take fork");
-	// print_status(philo, FORK, 0);
+	// print_status(philo, "take fork");
+	print_status(philo, FORK, 0);
 	if (philo->infos->nb_philo == 1)
 	{
+		printf("un seul philo");
 		pthread_mutex_unlock(philo->l_fork);
 		ft_usleep(philo->infos->tt_die);
 		return ;
 	}
 	pthread_mutex_lock(philo->r_fork);
-	print_status(philo, "take fork");
-	print_status(philo, "is eating");
-	// print_status(philo, FORK, 0);
-	// print_status(philo, EAT, 0);
+	// print_status(philo, "take fork");
+	// print_status(philo, "is eating");
+	print_status(philo, FORK, 0);
+	print_status(philo, EAT, 0);
 	philo->x_ate++;
 	// pthread_mutex_lock(&philo->infos->meal_check);
 	philo->time_last_meal = time_ms();
@@ -108,10 +109,10 @@ void 	*is_dead(void *data)
 		if (time_ms() - philo->time_last_meal >= philo->infos->tt_die)
 		{
 			pthread_mutex_unlock(&philo->infos->meal_check);
-			pthread_mutex_lock(&philo->infos->writing_status);
-			// print_status(philo, DEAD, 1);
-			print_status(philo, "died");
-			pthread_mutex_unlock(&philo->infos->writing_status);
+			// pthread_mutex_lock(&philo->infos->writing_status);
+			print_status(philo, DEAD, 1);
+			// print_status(philo, "died");
+			// pthread_mutex_unlock(&philo->infos->writing_status);
 		}
 		else
 			pthread_mutex_unlock(&philo->infos->meal_check);
@@ -147,9 +148,11 @@ void    *routine(void *data)
 			pthread_mutex_unlock(&philo->infos->is_dead);
 			return NULL;
 		}
-		print_status(philo, "is sleeping");
+		print_status(philo, SLEEP, 0);
+		// print_status(philo, "is sleeping");
 		ft_usleep(philo->infos->tt_sleep);
-		print_status(philo, "is thinking");
+		print_status(philo, THINK, 0);
+		// print_status(philo, "is thinking");
 		// if (!philo->id % 2)
 		// 	ft_usleep(100);
 			

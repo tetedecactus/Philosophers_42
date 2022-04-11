@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/11 13:41:22 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:29:28 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_usleep(long long time_in_ms);
 void    *routine(void *data);
 
 // Status function
-// void    print_status(t_philo  *philo, char *status, int dead);
+void    print_status(t_philo  *philo, char *status, int dead);
 void    display_info(void);
 void    print_philo_info(t_philo *philo, t_info *info);
 int     check_which_die(t_info *info);
@@ -42,6 +42,6 @@ void	sleep_dodo(t_philo *philo);
 int    ft_strcmp(const char *s1, const char *s2);
 
 
-void    print_status(t_philo *philo, char *str);
+// void    print_status(t_philo *philo, char *str);
 
 #endif
