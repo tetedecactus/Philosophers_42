@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/07 20:34:53 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:41:12 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ int  ft_isdigit(int c)
 }
 
 /* This function give the delta between now and the time we start*/
-long	current_time(t_philo *philo)
+long long	current_time(t_philo *philo)
 {
-	long time_in_ms;
+	long long time_in_ms;
 
 	time_in_ms = time_ms() - philo->infos->start_time;
 	return (time_in_ms);
 }
 
 /* This function give the actual time in micro second */
-long time_ms(void)
+long long time_ms(void)
 {
   struct timeval time;
-  long rtime;
+  long long rtime;
 
   rtime = 0;
   if (gettimeofday(&time, NULL) == -1)
@@ -65,12 +65,21 @@ long time_ms(void)
   return (rtime);
 }
 
-void	ft_usleep(long time_in_ms)
+void	ft_usleep(long long  time_in_ms)
 {
-	long	start_time;
+	long long	start_time;
 
-	start_time = 0;
 	start_time = time_ms();
 	while ((time_ms() - start_time) < time_in_ms)
 		usleep(time_in_ms / 10);
+}
+
+int    ft_strcmp(const char *s1, const char *s2)
+{
+    int    i;
+
+    i = 0;
+    while (s1[i] && s2[i] && s1[i] == s2[i])
+        i++;
+    return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

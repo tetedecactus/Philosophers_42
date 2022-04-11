@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/08 15:18:08 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:13:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int     start_diner(t_info *info, t_philo *philo)
     // print_philo_info(philo, info);
 	while (++i < info->nb_philo)
 	{
-		if (pthread_create(&philo[i].philo_th, NULL, &routine,  &philo[i]))
+		if (pthread_create(&philo[i].philo_th, NULL, routine,  &philo[i]))
             return (printf("%s\n", THREAD_ERR));
 	}
     i = -1;
+    while (++i < info->nb_philo)
+        pthread_join(philo[i].philo_th, 0);
     return (0);
 }
 
@@ -35,15 +37,9 @@ int clear_table(t_info *info, t_philo *philo)
     
     i = -1;
     printf("rentre clear table philo id = %d\n", philo->id);
-    while (++i < info->nb_philo)
-        pthread_join(philo[i].philo_th, 0);
     // pthread_join(philo->checker, NULL);
-    i = -1;
-    while (++i < info->nb_philo)
-        pthread_mutex_destroy(&info->fork[i]);
     pthread_mutex_destroy(&info->writing_status);
     pthread_mutex_destroy(&info->meal_check);
-    free(info->fork);
     // free(philo);
     return (0);
 }
@@ -72,9 +68,9 @@ int main(int ac, char **av)
         return (printf("%s\n", ARG_ERR));
     if (init_info(&info, ac, av))
         return (printf("%s\n", INIT_DATA_ERR));
-    philo = init_philo(&info, philo, ac, av);        
-    if (!philo)
-    return (printf("%s\n", INIT_DATA_ERR));
+    philo = malloc(sizeof(t_philo) * info.nb_philo);
+    if (!philo || init_philo(&info, philo, ac, av))
+        return (printf("%s\n", INIT_DATA_ERR));
     if (start_diner(&info , philo))
         return (printf("%s\n", DINER_ERR));
     if (clear_table(&info, philo))
