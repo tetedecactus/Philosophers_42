@@ -17,16 +17,12 @@ INC = includes
 OBJ = obj
 
 CFILES =	main.c \
-			init.c \
-			routine.c \
-			status.c \
-			utils.c \
-			time.c \
-			thread.c \
+			# init.c \
+			# routine.c \
+			# status.c \
+			# utils.c \
 		
 HFILES = 	philo.h \
-			derf.h \
-			struct.h \
 
 OFILES = 	$(CFILES:.c=.o)
 

@@ -6,11 +6,11 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/11 13:41:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/12 11:45:44 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philo.h"
+#include "../includes/philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -38,34 +38,12 @@ int	ft_atoi(const char *str)
 	return ((long)(sign * num));
 }
 
-int  ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
-    return ((c >= '0' && c <= '9'));
+	return ((c >= '0' && c <= '9'));
 }
 
-/* This function give the delta between now and the time we start*/
-long long	current_time(t_philo *philo)
-{
-	long long time_in_ms;
-
-	time_in_ms = time_ms() - philo->infos->start_time;
-	return (time_in_ms);
-}
-
-/* This function give the actual time in micro second */
-long long time_ms(void)
-{
-  struct timeval time;
-  long long rtime;
-
-  rtime = 0;
-  if (gettimeofday(&time, NULL) == -1)
-        return (printf("gettimeofday failed.\n"));
-  rtime = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-  return (rtime);
-}
-
-void	ft_usleep(long long  time_in_ms)
+void	ft_usleep(long long time_in_ms)
 {
 	long long	start_time;
 
@@ -74,12 +52,12 @@ void	ft_usleep(long long  time_in_ms)
 		usleep(time_in_ms / 10);
 }
 
-int    ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    int    i;
+	int	i;
 
-    i = 0;
-    while (s1[i] && s2[i] && s1[i] == s2[i])
-        i++;
-    return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

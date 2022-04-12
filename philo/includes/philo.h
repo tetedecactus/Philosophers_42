@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   def.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 10:29:01 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 10:11:28 by olabrecq         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef DEF_H
-# define DEF_H 
+#ifndef PHILO_H
+# define PHILO_H
 
 # define ARG_ERR "ERROR"
 # define AV1_ERR "NUMBER_OF_PHILOSOPHERS MUST BE BETWEEN [1-200]"
@@ -39,4 +27,45 @@
 # define THINK "\e[1;92m is thinking 🤔 \e[0m"
 # define DEAD "\e[1;91m died 💀 \e[0m"
 
-#endif 
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include <string.h>
+# include <sys/time.h>
+# include <pthread.h>
+
+typedef struct s_info
+{
+    int					nb_philo;
+	int					tt_die;
+	int					tt_eat;
+	int					tt_sleep;
+	int					num_must_eat;
+	int					all_ate;
+	long long			start_time;
+	int 				stop;
+} t_info;
+
+typedef struct s_mutex
+{
+  pthread_mutex_t       *forks;
+  pthread_mutex_t       print_status;
+  pthread_mutex_t       meal_check;
+  pthread_mutex_t       is_dead;  
+} t_mutex;
+
+typedef struct s_philo
+{
+    unsigned int        id;
+    unsigned int        left_fork;
+    unsigned int        right_fork;
+    unsigned int        x_ate;
+    unsigned int        stop;
+    long long           time_last_meal;
+    t_mutex             mutex;
+    t_info              *info;
+} t_philo;
+
+#endif
