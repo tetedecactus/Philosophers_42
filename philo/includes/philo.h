@@ -36,18 +36,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_info
-{
-    int					nb_philo;
-	int					tt_die;
-	int					tt_eat;
-	int					tt_sleep;
-	int					num_must_eat;
-	int					all_ate;
-	long long			start_time;
-	int 				stop;
-} t_info;
-
 typedef struct s_mutex
 {
   pthread_mutex_t       *forks;
@@ -56,16 +44,47 @@ typedef struct s_mutex
   pthread_mutex_t       is_dead;  
 } t_mutex;
 
+typedef struct s_info
+{
+  int					    nb_philo;
+	int					    tt_die;
+	int					    tt_eat;
+	int					    tt_sleep;
+	int				        num_must_eat;
+	int					    all_ate;
+	long long		        start_time;
+	int 				    stop;
+  t_mutex             		*mutex;
+} t_info;
+
 typedef struct s_philo
 {
+    pthread_t			philo_th;
+    pthread_t			checker;
     unsigned int        id;
     unsigned int        left_fork;
     unsigned int        right_fork;
     unsigned int        x_ate;
     unsigned int        stop;
     long long           time_last_meal;
-    t_mutex             mutex;
-    t_info              *info;
+    t_info              info;
 } t_philo;
+
+// Utils function
+int			ft_atoi(const char *str);
+long long	time_ms(void);
+long long	current_time(t_philo *philo);
+void		ft_usleep(long long time_in_ms);
+int			ft_isdigit(int c);
+
+// Init function
+int 		init_philo(t_philo *philo, int ac, char **av);
+
+// Routine function
+void    	*routine(void *data);
+
+// Status function
+void	print_status(t_philo *philo, char *status, int dead);
+
 
 #endif

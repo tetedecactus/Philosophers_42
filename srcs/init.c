@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 13:51:32 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/12 16:11:09 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	init_info(t_info *info, int ac, char **av)
 		info->num_must_eat = ft_atoi(av[5]);
 	else
 		info->num_must_eat = -1;
-	info->all_ate = false;
 	info->stop = 0;
 	info->start_time = 0;
 	if (pthread_mutex_init(&info->writing_status, NULL) \

@@ -17,10 +17,10 @@ INC = includes
 OBJ = obj
 
 CFILES =	main.c \
-			# init.c \
-			# routine.c \
-			# status.c \
-			# utils.c \
+			utils.c \
+			init.c \
+			routine.c \
+			status.c \
 		
 HFILES = 	philo.h \
 
