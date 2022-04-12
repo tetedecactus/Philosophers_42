@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 13:14:18 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/12 13:24:31 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ void	left_handed(t_philo *philo)
 	pthread_mutex_unlock(philo->r_fork);
 }
 
-void 	check_hand(t_philo *philo)
+void	check_hand(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
-			right_handed(philo);
-		else
-			left_handed(philo);
+		right_handed(philo);
+	else
+		left_handed(philo);
 }
+
