@@ -7,10 +7,10 @@ END 	= \033[0m
 RM		=	rm -rf
 MK		=	mkdir
 #------------------------
-NAME = philosophers
+NAME = philo
 
 CC = gcc 
-FLAGS = -Werror -Wall -Wextra -g
+FLAGS = -Werror -Wall -Wextra -g 
 
 SRC = srcs
 INC = includes

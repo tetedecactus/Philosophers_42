@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 13:51:32 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:43:35 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,22 @@ int	init_fork(t_philo *philo)
 	pthread_mutex_t	*forks;
 
 	n = philo->infos->nb_philo;
-	i = -1;
+	i = 0;
 	forks = malloc(sizeof(pthread_mutex_t) * n);
 	if (!forks)
 		return (printf("%s\n", FORK_INIT_ERR));
+	if (!i)
+	{
+		if (pthread_mutex_init(&forks[0], NULL))
+			return (printf("%s\n", MUTEX_INIT_ERR));
+		philo[0].l_fork = &forks[0];
+		philo[0].r_fork = NULL;
+		philo[0].r_fork = &forks[n - 1];
+	}
 	while (++i < n)
 	{
 		if (pthread_mutex_init(&forks[i], NULL))
 			return (printf("%s\n", MUTEX_INIT_ERR));
-		if (!i)
-		{
-			philo[0].l_fork = &forks[0];
-			philo[0].r_fork = &forks[n - 1];
-		}
 		philo[i].l_fork = &forks[i];
 		philo[i].r_fork = &forks[i - 1];
 	}
@@ -48,7 +51,6 @@ int	init_info(t_info *info, int ac, char **av)
 		info->num_must_eat = ft_atoi(av[5]);
 	else
 		info->num_must_eat = -1;
-	info->all_ate = false;
 	info->stop = 0;
 	info->start_time = 0;
 	if (pthread_mutex_init(&info->writing_status, NULL) \
