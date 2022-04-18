@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 13:15:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:41:10 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			ft_isdigit(int c);
 void		ft_usleep(long long time_in_ms);
 
 // Routine function 
-void 	check_hand(t_philo *philo);
+void		check_hand(t_philo *philo);
 
 // Status function
 void		print_status(t_philo *philo, char *status, int dead);
@@ -42,8 +42,8 @@ void		sleep_dodo(t_philo *philo);
 int			ft_strcmp(const char *s1, const char *s2);
 
 // Thread functions
-void	*poutine(void *data);
-void	routine_poutine(t_philo *philo);
-void	*is_dead(void *data);
+void		*poutine(void *data);
+void		routine_poutine(t_philo *philo);
+void		*is_dead(void *data);
 
 #endif

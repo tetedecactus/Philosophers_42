@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:21:14 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 17:22:40 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:44:07 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,5 @@ void	*poutine(void *data)
 	if (pthread_create(&philo->checker, NULL, &is_dead, philo))
 		return (NULL);
 	routine_poutine(philo);
-	if (pthread_join(philo->checker, NULL))
-		return (NULL);
 	return (NULL);
 }

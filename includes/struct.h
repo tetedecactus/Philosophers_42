@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 13:54:39 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:41:31 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,5 @@ typedef struct s_philo
 	int					x_ate;
 	int					stop;
 }						t_philo;
-
-// ./philo 1 200 200 200	philo 1 ne prend qu'une fourchette et meurt au bout de 200 ms
-// ./philo 2 800 200 200	personne ne meurt
-// ./philo 5 800 200 200	personne ne meurt
-// ./philo 5 800 200 200 7	la simulation s'arrete quand chaque philo a mange 7 fois
-// ./philo 4 410 200 200	personne ne meurt
-// ./philo 4 310 200 200	un philo meurt
-// ./philo 4 500 200 1.2	argument invalide
-// ./philo 4 0 200 200	argument invalide
-// ./philo 4 -500 200 200	argument invalide
-// ./philo 4 500 200 2147483647	un philo meurt au bout de 500 ms
-// ./philo 4 2147483647 200 200	personne ne meurt
-// ./philo 4 214748364732 200 200	argument invalide
-// ./philo 4 200 210 200	un philo meurt, il faut afficher la mort avant 210 ms
 
 #endif
