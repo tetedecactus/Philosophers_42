@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:21:14 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/18 16:09:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/18 16:37:24 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	routine_poutine(t_philo *philo)
 		print_status(philo, SLEEP, 0);
 		ft_usleep(philo->infos->tt_sleep);
 		print_status(philo, THINK, 0);
-		
-
 		pthread_mutex_lock(&philo->infos->is_dead);
 		stop = philo->infos->stop + philo->stop;
 		pthread_mutex_unlock(&philo->infos->is_dead);
