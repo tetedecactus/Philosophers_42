@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/18 16:34:26 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:47:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	clear_table(t_info *info, t_philo *philo)
 	i = -1;
 	while (++i < info->nb_philo)
 	{
-		pthread_mutex_destroy(philo[i].l_fork);
+		pthread_mutex_destroy(&philo[i].l_fork);
 		philo[i].r_fork = NULL;	
 	}
 	pthread_mutex_destroy(&info->writing_status);

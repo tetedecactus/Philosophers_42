@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/18 17:37:35 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:43:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_info
 
 typedef struct s_philo
 {
-	pthread_mutex_t		*l_fork;
+	pthread_mutex_t		l_fork;
 	pthread_mutex_t		*r_fork;
 	pthread_t			philo_th;
 	pthread_t			checker;
