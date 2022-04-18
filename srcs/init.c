@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/13 11:43:35 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/18 16:35:19 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,11 @@ int	init_fork(t_philo *philo)
 	forks = malloc(sizeof(pthread_mutex_t) * n);
 	if (!forks)
 		return (printf("%s\n", FORK_INIT_ERR));
-	if (!i)
-	{
-		if (pthread_mutex_init(&forks[0], NULL))
-			return (printf("%s\n", MUTEX_INIT_ERR));
-		philo[0].l_fork = &forks[0];
-		philo[0].r_fork = NULL;
-		philo[0].r_fork = &forks[n - 1];
-	}
+	if (pthread_mutex_init(&forks[0], NULL))
+		return (printf("%s\n", MUTEX_INIT_ERR));
+	philo[0].l_fork = &forks[0];
+	philo[0].r_fork = NULL;
+	philo[0].r_fork = &forks[n - 1];
 	while (++i < n)
 	{
 		if (pthread_mutex_init(&forks[i], NULL))
@@ -66,8 +63,6 @@ int	init_philo(t_info *info, t_philo *philo, int ac, char **av)
 	int	n;
 
 	n = info->nb_philo;
-	if (!philo)
-		return (1);
 	i = -1;
 	while (++i < n)
 	{

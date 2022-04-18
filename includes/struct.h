@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/13 11:41:31 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/18 16:33:12 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_info
 	int					tt_eat;
 	int					tt_sleep;
 	int					num_must_eat;
-	int					all_ate;
 	int					stop;
 	long long			start_time;
 }	t_info;
