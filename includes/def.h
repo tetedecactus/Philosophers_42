@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:29:01 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/12 10:11:28 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:40:16 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DEF_H 
 
 # define ARG_ERR "ERROR"
+# define DIGIT_ERR "ARGS MUST BE ONLY NUMBER YOU DICK HEAD"
 # define AV1_ERR "NUMBER_OF_PHILOSOPHERS MUST BE BETWEEN [1-200]"
 # define AV2_ERR "TIME_TO_DIE MUST BE [60["
 # define AV3_ERR "TIME_TO_EAT MUST BE [60["
