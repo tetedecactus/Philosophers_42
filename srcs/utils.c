@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/19 16:01:25 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:32:18 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	ft_atoi(const char *str)
 
 int	ft_isdigit(int c)
 {
-    if ((c >= 0 && c <= 9))
-        return (0);
-    return (1);
+	if ((c >= 0 && c <= 9))
+		return (0);
+	return (1);
 }
 
 void	ft_usleep(long long time_in_ms)

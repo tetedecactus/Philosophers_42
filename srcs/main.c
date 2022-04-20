@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/19 16:58:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:31:48 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	clear_table(t_info *info, t_philo *philo)
 	while (++i < info->nb_philo)
 	{
 		pthread_mutex_destroy(&philo[i].l_fork);
-		philo[i].r_fork = NULL;	
+		philo[i].r_fork = NULL;
 	}
 	pthread_mutex_destroy(&info->writing_status);
 	pthread_mutex_destroy(&info->writing_status);
@@ -46,21 +46,21 @@ void	clear_table(t_info *info, t_philo *philo)
 	free(philo);
 }
 
-int check_if_digit(int ac, char **av)
+int	check_if_digit(int ac, char **av)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 1;
-	while(av[i])
+	while (av[i])
 	{
 		j = 0;
-		while(av[i][j])
+		while (av[i][j])
 		{
 			if (av[i][j] >= '0' && av[i][j] <= '9' )
 				j++;
 			else
-				return(1);
+				return (1);
 		}
 		i++;
 	}
@@ -69,8 +69,8 @@ int check_if_digit(int ac, char **av)
 
 int	check_args(int ac, char **av)
 {
-    if (check_if_digit(ac, av))
-        return (printf("%s\n", DIGIT_ERR));
+	if (check_if_digit(ac, av))
+		return (printf("%s\n", DIGIT_ERR));
 	if (ft_atoi(av[1]) < 1 || ft_atoi(av[1]) > 200)
 		return (printf("%s\n", AV1_ERR));
 	if (ft_atoi(av[2]) < 60)
