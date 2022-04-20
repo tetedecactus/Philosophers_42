@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 16:33:48 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:49:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	main(int ac, char **av)
 		return (printf("%s\n", INIT_DATA_ERR));
 	// philo = malloc(sizeof(t_philo) * info.nb_philo);
 	philo = init_philo(info);
-		// return (printf("%s\n", INIT_DATA_ERR));
 	if (start_diner(info, philo))
 		return (printf("%s\n", DINER_ERR));
 	clear_table(philo, info);
