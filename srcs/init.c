@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 16:48:48 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:17:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ int	init_info(t_info *info, int ac, char **av)
 	return (0);
 }
 
-t_philo *init_philo(t_info *info)
+t_philo	*init_philo(t_info *info)
 {
-	int	i;
-	int	n;
-    t_philo *philo;
-    
+	int		i;
+	int		n;
+	t_philo	*philo;
+
 	n = info->nb_philo;
 	philo = malloc(sizeof(t_philo) * n);
-    if (!philo)
-        return (NULL);
+	if (!philo)
+		return (NULL);
 	i = -1;
 	while (++i < n)
 	{

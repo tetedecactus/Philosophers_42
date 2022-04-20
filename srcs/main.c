@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 17:00:18 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:16:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ void	clear_table(t_philo *philo, t_info *info)
 	int	i;
 
 	i = -1;
-    printf("go inside clear table\n");
 	pthread_mutex_destroy(&info->writing_status);
 	pthread_mutex_destroy(&info->meal_check);
 	pthread_mutex_destroy(&info->is_dead);
 	while (++i < philo->infos->nb_philo)
 	{
 		pthread_mutex_destroy(&philo[i].l_fork);
-		// philo[i].r_fork = NULL;
+		philo[i].r_fork = NULL;
 	}
 	free(philo);
 }
@@ -89,7 +88,7 @@ int	main(int ac, char **av)
 {
 	t_info	info;
 	t_philo	*philo;
-    
+
 	philo = NULL;
 	if (ac < 5 || ac > 6 || check_args(ac, av))
 		return (printf("%s\n", ARG_ERR));
