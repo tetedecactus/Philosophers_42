@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:57:43 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 16:49:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:00:18 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	clear_table(t_philo *philo, t_info *info)
 	while (++i < philo->infos->nb_philo)
 	{
 		pthread_mutex_destroy(&philo[i].l_fork);
-		philo[i].r_fork = NULL;
+		// philo[i].r_fork = NULL;
 	}
 	free(philo);
 }
@@ -87,19 +87,17 @@ int	check_args(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_info	*info;
+	t_info	info;
 	t_philo	*philo;
     
 	philo = NULL;
 	if (ac < 5 || ac > 6 || check_args(ac, av))
 		return (printf("%s\n", ARG_ERR));
-    info = malloc(sizeof(t_info));
-	if (init_info(info, ac, av))
+	if (init_info(&info, ac, av))
 		return (printf("%s\n", INIT_DATA_ERR));
-	// philo = malloc(sizeof(t_philo) * info.nb_philo);
-	philo = init_philo(info);
-	if (start_diner(info, philo))
+	philo = init_philo(&info);
+	if (start_diner(&info, philo))
 		return (printf("%s\n", DINER_ERR));
-	clear_table(philo, info);
+	clear_table(philo, &info);
 	return (0);
 }
