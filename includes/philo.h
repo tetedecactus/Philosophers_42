@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/18 15:58:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:03:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include "def.h"
 
 // Init function
-// t_philo *init_philo(t_info *info, t_philo *philo, int ac, char **av);
-int			init_philo(t_info *info, t_philo *philo, int ac, char **av);
+t_philo     *init_philo(t_info *info);
 int			init_info(t_info *info, int ac, char **av);
 
 // Utils function

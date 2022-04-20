@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 10:30:41 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:36:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,22 @@ int	init_info(t_info *info, int ac, char **av)
 		info->num_must_eat = -1;
 	info->stop = 0;
 	info->start_time = 0;
-	if (pthread_mutex_init(&info->writing_status, NULL) \
-		|| pthread_mutex_init(&info->meal_check, NULL) \
-		|| pthread_mutex_init(&info->is_dead, NULL))
-		return (printf("%s\n", MUTEX_INIT_ERR));
+	pthread_mutex_init(&info->writing_status, NULL);
+	pthread_mutex_init(&info->meal_check, NULL);
+	pthread_mutex_init(&info->is_dead, NULL);
 	return (0);
 }
 
-int	init_philo(t_info *info, t_philo *philo, int ac, char **av)
+t_philo *init_philo(t_info *info)
 {
 	int	i;
 	int	n;
-
+    t_philo *philo;
+    
 	n = info->nb_philo;
+	philo = malloc(sizeof(t_philo) * n);
+    if (!philo)
+        return (NULL);
 	i = -1;
 	while (++i < n)
 	{
@@ -67,5 +70,5 @@ int	init_philo(t_info *info, t_philo *philo, int ac, char **av)
 		pthread_mutex_init(&philo->l_fork, NULL);
 	}
 	init_fork(philo);
-	return (0);
+	return (philo);
 }

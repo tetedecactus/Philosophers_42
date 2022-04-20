@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:22:32 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/19 11:05:52 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:22:47 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	right_handed(t_philo *philo)
 	philo->x_ate++;
 	philo->time_last_meal = time_ms();
 	ft_usleep(philo->infos->tt_eat);
-	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(&philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
 }
 
 void	left_handed(t_philo *philo)
@@ -48,8 +48,8 @@ void	left_handed(t_philo *philo)
 	philo->x_ate++;
 	philo->time_last_meal = time_ms();
 	ft_usleep(philo->infos->tt_eat);
-	pthread_mutex_unlock(&philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(&philo->l_fork);
 }
 
 void	check_hand(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 12:37:47 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/19 11:05:20 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:14:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-struct	s_info;
 typedef struct s_info
 {
 	pthread_mutex_t		is_dead;
