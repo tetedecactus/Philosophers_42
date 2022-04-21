@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:52:18 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 17:17:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:50:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_philo	*init_philo(t_info *info)
 	t_philo	*philo;
 
 	n = info->nb_philo;
-	philo = malloc(sizeof(t_philo) * n);
+	philo = (t_philo *)ft_calloc(n, sizeof(t_philo));
 	if (!philo)
 		return (NULL);
 	i = -1;
@@ -67,6 +67,9 @@ t_philo	*init_philo(t_info *info)
 		philo[i].time_last_meal = 0;
 		philo[i].stop = 0;
 		philo[i].infos = info;
+		philo[i].philo_th = NULL;
+		philo[i].checker = NULL;
+		philo[i].r_fork = NULL;
 		pthread_mutex_init(&philo->l_fork, NULL);
 	}
 	init_fork(philo);

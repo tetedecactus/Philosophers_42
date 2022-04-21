@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 09:59:50 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 17:18:24 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:49:10 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ long long	time_ms(void);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		ft_usleep(long long time_in_ms);
+void		*ft_calloc(size_t count, size_t size);
 
 // Routine function 
 void		check_hand(t_philo *philo);

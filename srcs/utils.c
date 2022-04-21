@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 10:22:07 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/04/20 11:33:06 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:43:20 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,35 @@ void	ft_usleep(long long time_in_ms)
 	start_time = time_ms();
 	while ((time_ms() - start_time) < time_in_ms)
 		usleep(time_in_ms / 10);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*pstr;
+
+	i = 0;
+	pstr = (unsigned char *)s;
+	while (i < n)
+	{
+		pstr[i] = 0;
+		i++;
+	}
+	s = pstr;
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*b;
+
+	if (!count || !size)
+	{
+		count = 1;
+		size = 1;
+	}
+	size *= count;
+	b = (void *)malloc(size);
+	if (b)
+		ft_bzero(b, size);
+	return (b);
 }

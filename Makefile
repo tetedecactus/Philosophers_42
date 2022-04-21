@@ -10,7 +10,7 @@ MK		=	mkdir
 NAME = philo
 
 CC = gcc 
-FLAGS = -Werror -Wall -Wextra -g 
+FLAGS = -Werror -Wall -Wextra -g
 
 SRC = srcs
 INC = includes
@@ -35,7 +35,7 @@ HEADER		=	$(addprefix $(INC)/, $(HFILES))
 OBJS		=	$(addprefix $(OBJ)/, $(OFILES))
 
 $(OBJ)/%.o:	$(SRC)/%.c
-			$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+			$(CC) $(FLAGS) -I$(INC) -c $< -o $@
 
 
 all:	$(NAME)
